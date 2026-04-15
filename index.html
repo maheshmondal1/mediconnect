@@ -1,0 +1,1556 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>MediConnect India – Healthcare for Every Indian</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --bg:#060E1F;--bg2:#0C1830;--bg3:#101F3A;--bg4:#152345;
+  --teal:#00C9A7;--teal2:rgba(0,201,167,0.12);--teal3:rgba(0,201,167,0.06);
+  --gold:#F5A623;--gold2:rgba(245,166,35,0.12);
+  --red:#FF4060;--red2:rgba(255,64,96,0.12);
+  --blue:#4A9EFF;--blue2:rgba(74,158,255,0.12);
+  --white:#E8F0FF;--muted:#6B87B8;--faint:#2A3D60;
+  --border:rgba(255,255,255,0.07);--border2:rgba(255,255,255,0.11);
+  --card:rgba(255,255,255,0.032);--card2:rgba(255,255,255,0.06);
+  --ff-h:'Instrument Serif',Georgia,serif;--ff-b:'Outfit',sans-serif;
+  --radius:12px;--radius2:18px;--radius3:24px;
+  --ease:cubic-bezier(0.25,0.46,0.45,0.94);
+  --shadow:0 20px 60px rgba(0,0,0,0.5);
+}
+html{scroll-behavior:smooth;font-size:16px}
+body{background:var(--bg);color:var(--white);font-family:var(--ff-b);line-height:1.65;overflow-x:hidden}
+::-webkit-scrollbar{width:5px}
+::-webkit-scrollbar-track{background:var(--bg)}
+::-webkit-scrollbar-thumb{background:var(--faint);border-radius:3px}
+a{text-decoration:none;color:inherit}
+button{font-family:var(--ff-b);cursor:pointer}
+img{display:block;max-width:100%}
+
+/* ── ANIMATIONS ── */
+@keyframes fadeUp{from{opacity:0;transform:translateY(28px)}to{opacity:1;transform:translateY(0)}}
+@keyframes fadeIn{from{opacity:0}to{opacity:1}}
+@keyframes slideInRight{from{opacity:0;transform:translateX(40px)}to{opacity:1;transform:translateX(0)}}
+@keyframes scaleIn{from{opacity:0;transform:scale(0.93)}to{opacity:1;transform:scale(1)}}
+@keyframes pulse{0%,100%{box-shadow:0 0 0 0 rgba(0,201,167,0.4)}50%{box-shadow:0 0 0 10px rgba(0,201,167,0)}}
+@keyframes pulseRed{0%,100%{box-shadow:0 0 0 0 rgba(255,64,96,0.45)}50%{box-shadow:0 0 0 10px rgba(255,64,96,0)}}
+@keyframes blink{0%,100%{opacity:1}50%{opacity:0.25}}
+@keyframes spin{to{transform:rotate(360deg)}}
+@keyframes countUp{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:translateY(0)}}
+@keyframes shimmer{0%{background-position:-200% 0}100%{background-position:200% 0}}
+@keyframes float{0%,100%{transform:translateY(0)}50%{transform:translateY(-8px)}}
+@keyframes heartbeat{0%,100%{transform:scale(1)}14%{transform:scale(1.15)}28%{transform:scale(1)}42%{transform:scale(1.1)}70%{transform:scale(1)}}
+
+.reveal{opacity:0;transform:translateY(30px);transition:opacity 0.65s var(--ease),transform 0.65s var(--ease)}
+.reveal.visible{opacity:1;transform:translateY(0)}
+.reveal-delay-1{transition-delay:0.1s}
+.reveal-delay-2{transition-delay:0.2s}
+.reveal-delay-3{transition-delay:0.3s}
+.reveal-delay-4{transition-delay:0.4s}
+.reveal-delay-5{transition-delay:0.5s}
+
+/* ── NAV ── */
+#nav{
+  position:fixed;top:0;left:0;right:0;z-index:800;height:62px;
+  display:flex;align-items:center;justify-content:space-between;
+  padding:0 clamp(14px,4vw,56px);
+  background:rgba(6,14,31,0.82);backdrop-filter:blur(28px) saturate(1.5);
+  border-bottom:0.5px solid var(--border);
+  transition:background 0.4s;
+}
+.nav-logo{display:flex;align-items:center;gap:9px;font-family:var(--ff-h);font-size:20px;font-weight:400}
+.nav-logo-mark{width:32px;height:32px;border-radius:9px;background:linear-gradient(135deg,var(--teal),#0099FF);display:flex;align-items:center;justify-content:center;font-size:15px;flex-shrink:0;transition:transform 0.3s}
+.nav-logo:hover .nav-logo-mark{transform:rotate(-8deg) scale(1.05)}
+.nav-logo span{color:var(--teal)}
+.nav-center{display:flex;align-items:center;gap:clamp(8px,2vw,24px)}
+.nav-center a{color:var(--muted);font-size:13.5px;font-weight:500;transition:color 0.2s;white-space:nowrap}
+.nav-center a:hover{color:var(--white)}
+.nav-right{display:flex;align-items:center;gap:10px}
+.btn-emg-nav{display:flex;align-items:center;gap:6px;background:var(--red);color:#fff;padding:7px 15px;border-radius:9px;font-size:13px;font-weight:700;border:none;animation:pulseRed 2.5s infinite;transition:transform 0.2s}
+.btn-emg-nav:hover{transform:scale(1.04)}
+.btn-signin{background:transparent;color:var(--white);border:0.5px solid var(--border2);padding:7px 16px;border-radius:9px;font-size:13px;font-weight:500;transition:all 0.2s}
+.btn-signin:hover{border-color:var(--teal);background:var(--teal2);color:var(--teal)}
+.hamburger{display:none;background:none;border:none;padding:7px;flex-direction:column;gap:4.5px;cursor:pointer}
+.hb-line{width:20px;height:1.5px;background:var(--white);border-radius:2px;transition:all 0.3s}
+
+/* DRAWER */
+.drawer{position:fixed;top:0;right:-300px;width:280px;height:100vh;background:var(--bg2);border-left:0.5px solid var(--border2);z-index:850;transition:right 0.35s var(--ease);padding:70px 0 24px;overflow-y:auto}
+.drawer.open{right:0}
+.drawer-overlay{position:fixed;inset:0;background:rgba(0,0,0,0.5);z-index:849;display:none;opacity:0;transition:opacity 0.3s}
+.drawer-overlay.open{display:block;opacity:1}
+.drawer-section{padding:8px 0;border-bottom:0.5px solid var(--border)}
+.drawer-label{font-size:10px;font-weight:700;color:var(--muted);letter-spacing:0.1em;text-transform:uppercase;padding:10px 22px 4px}
+.drawer a{display:flex;align-items:center;gap:10px;padding:11px 22px;color:rgba(232,240,255,0.7);font-size:14px;font-weight:500;transition:all 0.2s;border-radius:0}
+.drawer a:hover{background:var(--card2);color:var(--white)}
+.drawer a .d-icon{width:28px;height:28px;border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:13px;flex-shrink:0}
+
+/* ── LAYOUT ── */
+.sec{padding:clamp(56px,7vw,92px) clamp(14px,4vw,56px)}
+.inner{max-width:1240px;margin:0 auto}
+.divider{height:0.5px;background:linear-gradient(90deg,transparent,var(--border) 15%,var(--border) 85%,transparent);margin:0 clamp(14px,4vw,56px)}
+.tag{display:inline-flex;align-items:center;gap:5px;background:var(--teal2);border:0.5px solid rgba(0,201,167,0.2);border-radius:100px;padding:4px 13px;font-size:11px;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;color:var(--teal);margin-bottom:12px}
+.tag-red{background:var(--red2);border-color:rgba(255,64,96,0.22);color:var(--red)}
+.tag-gold{background:var(--gold2);border-color:rgba(245,166,35,0.22);color:var(--gold)}
+.h2{font-family:var(--ff-h);font-size:clamp(26px,3.8vw,46px);line-height:1.1;letter-spacing:-0.015em;margin-bottom:12px;font-weight:400}
+.h2 em{color:var(--teal);font-style:italic}
+.h2 .red{color:var(--red)}
+.h2 .gold{color:var(--gold)}
+.sub{color:var(--muted);font-size:clamp(13.5px,1.4vw,15.5px);line-height:1.75;max-width:560px}
+.tc{text-align:center}.tc .sub{margin:0 auto}
+
+/* BUTTONS */
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:7px;border:none;border-radius:var(--radius);font-family:var(--ff-b);font-weight:600;cursor:pointer;transition:all 0.22s var(--ease);white-space:nowrap;position:relative;overflow:hidden}
+.btn::after{content:'';position:absolute;inset:0;background:rgba(255,255,255,0);transition:background 0.2s}
+.btn:hover::after{background:rgba(255,255,255,0.06)}
+.btn-p{background:var(--teal);color:#04111F;padding:12px 24px;font-size:14px;font-weight:700}
+.btn-p:hover{background:#00E0BA;transform:translateY(-2px);box-shadow:0 8px 24px rgba(0,201,167,0.3)}
+.btn-r{background:var(--red);color:#fff;padding:12px 24px;font-size:14px;font-weight:700;animation:pulseRed 2.5s infinite}
+.btn-r:hover{background:#FF1A40;transform:translateY(-2px)}
+.btn-o{background:transparent;color:var(--white);border:0.5px solid var(--border2);padding:12px 24px;font-size:14px}
+.btn-o:hover{border-color:var(--teal);background:var(--teal2);color:var(--teal);transform:translateY(-2px)}
+.btn-gold{background:var(--gold);color:#1A0E00;padding:12px 24px;font-size:14px;font-weight:700}
+.btn-gold:hover{background:#FFBA40;transform:translateY(-2px);box-shadow:0 8px 24px rgba(245,166,35,0.3)}
+.btn-full{width:100%;padding:13px}
+.btn-sm{padding:8px 16px;font-size:12.5px;border-radius:9px}
+
+/* ── HERO ── */
+#hero{padding:calc(62px + clamp(36px,5vw,72px)) clamp(14px,4vw,56px) clamp(48px,6vw,72px);max-width:1240px;margin:0 auto;display:grid;grid-template-columns:1.1fr 0.9fr;gap:clamp(32px,4vw,64px);align-items:center}
+.hero-badge{display:inline-flex;align-items:center;gap:7px;background:var(--teal2);border:0.5px solid rgba(0,201,167,0.2);border-radius:100px;padding:5px 14px 5px 7px;font-size:11.5px;color:var(--teal);font-weight:600;margin-bottom:20px;animation:fadeIn 0.8s both}
+.live-dot{width:7px;height:7px;border-radius:50%;background:var(--teal);animation:blink 1.6s infinite}
+.hero h1{font-family:var(--ff-h);font-size:clamp(34px,5vw,64px);line-height:1.05;letter-spacing:-0.02em;margin-bottom:18px;animation:fadeUp 0.8s 0.1s both}
+.hero h1 em{color:var(--teal);font-style:italic}
+.hero-desc{color:var(--muted);font-size:clamp(13.5px,1.4vw,15.5px);line-height:1.78;max-width:480px;margin-bottom:28px;animation:fadeUp 0.8s 0.2s both}
+.hero-loc-search{display:flex;gap:9px;margin-bottom:28px;flex-wrap:wrap;animation:fadeUp 0.8s 0.25s both}
+.loc-input-wrap{flex:1;min-width:200px;display:flex;align-items:center;gap:9px;background:var(--card);border:0.5px solid var(--border2);border-radius:var(--radius);padding:0 15px;height:46px;transition:border-color 0.2s}
+.loc-input-wrap:focus-within{border-color:var(--teal)}
+.loc-input-wrap input{flex:1;background:none;border:none;outline:none;color:var(--white);font-family:var(--ff-b);font-size:13.5px}
+.loc-input-wrap input::placeholder{color:var(--faint)}
+.loc-icon{color:var(--muted);font-size:15px;flex-shrink:0}
+.hero-actions{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:36px;animation:fadeUp 0.8s 0.3s both}
+.hero-stats{display:flex;gap:clamp(16px,3vw,36px);flex-wrap:wrap;animation:fadeUp 0.8s 0.4s both}
+.stat{display:flex;flex-direction:column}
+.stat-n{font-family:var(--ff-h);font-size:clamp(20px,2.5vw,29px);font-weight:400}
+.stat-l{font-size:11px;color:var(--muted)}
+.stat-sep{width:0.5px;background:var(--border2);align-self:stretch}
+/* hero right */
+.hero-right{display:flex;flex-direction:column;gap:14px;animation:slideInRight 0.9s 0.3s both}
+.hero-panel{background:var(--bg2);border:0.5px solid var(--border2);border-radius:var(--radius3);padding:clamp(16px,2vw,24px);position:relative;overflow:hidden}
+.hero-panel::before{content:'';position:absolute;top:0;left:0;right:0;height:2.5px;background:linear-gradient(90deg,var(--teal),var(--blue),var(--gold))}
+.panel-hdr{display:flex;justify-content:space-between;align-items:center;margin-bottom:13px}
+.panel-title-sm{font-size:10.5px;font-weight:700;color:var(--muted);letter-spacing:0.09em;text-transform:uppercase}
+.live-badge{display:flex;align-items:center;gap:5px;background:var(--teal2);border:0.5px solid rgba(0,201,167,0.2);border-radius:100px;padding:3px 9px;font-size:10.5px;color:var(--teal);font-weight:700}
+.doc-rows{display:flex;flex-direction:column;gap:8px}
+.doc-row{display:flex;align-items:center;gap:11px;padding:10px 12px;background:var(--card);border:0.5px solid var(--border);border-radius:var(--radius);cursor:pointer;transition:all 0.22s}
+.doc-row:hover{background:var(--card2);border-color:rgba(0,201,167,0.3);transform:translateX(3px)}
+.drow-ava{width:38px;height:38px;border-radius:9px;overflow:hidden;flex-shrink:0}
+.drow-ava svg{width:100%;height:100%}
+.drow-info{flex:1;min-width:0}
+.drow-name{font-size:13px;font-weight:600;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.drow-spec{font-size:11px;color:var(--muted)}
+.drow-badge{font-size:10px;font-weight:700;border-radius:100px;padding:3px 8px;flex-shrink:0}
+.db-avail{background:var(--teal2);color:var(--teal)}
+.db-wait{background:var(--gold2);color:var(--gold)}
+/* save life card */
+.save-life-card{background:linear-gradient(135deg,rgba(255,64,96,0.1),rgba(245,166,35,0.08));border:0.5px solid rgba(255,64,96,0.25);border-radius:var(--radius2);padding:clamp(14px,2vw,20px);display:flex;align-items:center;gap:14px;cursor:pointer;transition:all 0.25s;animation:float 4s ease-in-out infinite}
+.save-life-card:hover{border-color:rgba(255,64,96,0.5);background:linear-gradient(135deg,rgba(255,64,96,0.15),rgba(245,166,35,0.12));transform:translateY(-2px) !important}
+.slc-icon{font-size:32px;animation:heartbeat 2s infinite;flex-shrink:0}
+.slc-title{font-size:14px;font-weight:700;margin-bottom:3px}
+.slc-sub{font-size:12px;color:var(--muted)}
+.slc-btn{background:var(--red);color:#fff;padding:7px 16px;border-radius:8px;font-size:12px;font-weight:700;border:none;cursor:pointer;white-space:nowrap;flex-shrink:0;transition:all 0.2s}
+.slc-btn:hover{background:#FF1A40;transform:scale(1.05)}
+
+/* ── QUICK ACCESS ── */
+.quick-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(clamp(140px,18%,200px),1fr));gap:14px;margin-top:44px}
+.quick-card{background:var(--card);border:0.5px solid var(--border);border-radius:var(--radius2);padding:clamp(18px,2vw,24px);display:flex;flex-direction:column;gap:11px;cursor:pointer;transition:all 0.25s;position:relative;overflow:hidden}
+.quick-card::before{content:'';position:absolute;bottom:0;left:0;right:0;height:2px;background:var(--accent-color);transform:scaleX(0);transition:transform 0.3s;transform-origin:left}
+.quick-card:hover{background:var(--card2);border-color:var(--accent-color);transform:translateY(-4px);box-shadow:0 12px 36px rgba(0,0,0,0.3)}
+.quick-card:hover::before{transform:scaleX(1)}
+.qc-icon{font-size:26px}
+.qc-title{font-size:14px;font-weight:700}
+.qc-desc{font-size:12px;color:var(--muted);line-height:1.5}
+
+/* ── DOCTOR SEARCH ── */
+.search-bar{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:32px}
+.search-input{flex:1;min-width:180px;display:flex;align-items:center;gap:9px;background:var(--card);border:0.5px solid var(--border2);border-radius:var(--radius);padding:0 15px;height:46px;transition:border-color 0.2s}
+.search-input:focus-within{border-color:var(--teal)}
+.search-input input{flex:1;background:none;border:none;outline:none;color:var(--white);font-family:var(--ff-b);font-size:13.5px}
+.search-input input::placeholder{color:var(--faint)}
+.filter-pill{background:var(--card);border:0.5px solid var(--border2);border-radius:100px;padding:8px 16px;font-size:13px;color:var(--muted);cursor:pointer;transition:all 0.2s;white-space:nowrap;font-family:var(--ff-b)}
+.filter-pill:hover,.filter-pill.fp-active{background:var(--teal2);border-color:rgba(0,201,167,0.3);color:var(--teal)}
+
+/* DOC CARDS */
+.doc-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(clamp(260px,30%,340px),1fr));gap:18px}
+.doc-card{background:var(--card);border:0.5px solid var(--border);border-radius:var(--radius2);padding:22px;transition:all 0.28s;position:relative;overflow:hidden}
+.doc-card::after{content:'';position:absolute;inset:0;border-radius:var(--radius2);background:linear-gradient(135deg,rgba(0,201,167,0.04),transparent);opacity:0;transition:opacity 0.3s}
+.doc-card:hover{border-color:rgba(0,201,167,0.3);transform:translateY(-4px);box-shadow:0 16px 48px rgba(0,0,0,0.35)}
+.doc-card:hover::after{opacity:1}
+.doc-card-verified{position:absolute;top:14px;right:14px;background:var(--teal2);border:0.5px solid rgba(0,201,167,0.25);border-radius:100px;padding:3px 9px;font-size:10px;font-weight:700;color:var(--teal)}
+.dc-top{display:flex;gap:13px;margin-bottom:14px;align-items:flex-start}
+.dc-ava{width:62px;height:62px;border-radius:15px;overflow:hidden;flex-shrink:0;border:1.5px solid var(--border2);cursor:pointer;transition:all 0.25s}
+.dc-ava:hover{border-color:var(--teal);transform:scale(1.06);box-shadow:0 6px 20px rgba(0,201,167,0.2)}
+.dc-ava svg{width:100%;height:100%}
+.dc-info{flex:1;min-width:0}
+.dc-name{font-size:15px;font-weight:700;cursor:pointer;transition:color 0.2s;margin-bottom:2px;display:inline-block}
+.dc-name:hover{color:var(--teal)}
+.dc-spec{font-size:12px;color:var(--teal);font-weight:600;margin-bottom:1px}
+.dc-hosp{font-size:12px;color:var(--muted)}
+.dc-meta{display:flex;gap:16px;margin-bottom:12px}
+.dc-mv{font-size:14px;font-weight:700}
+.dc-ml{font-size:11px;color:var(--muted)}
+.stars{color:var(--gold);font-size:11px}
+.dc-pills{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:13px}
+.pill{font-size:11px;font-weight:600;border-radius:7px;padding:3px 9px}
+.p-teal{background:var(--teal2);color:var(--teal)}
+.p-gold{background:var(--gold2);color:var(--gold)}
+.p-blue{background:var(--blue2);color:var(--blue)}
+.dc-foot{display:flex;align-items:center;justify-content:space-between;gap:8px}
+.dc-fee-n{font-size:16px;font-weight:700}
+.dc-fee-l{font-size:10.5px;color:var(--muted)}
+.dc-actions{display:flex;gap:7px}
+.avail-tag{display:inline-flex;align-items:center;gap:4px;background:var(--teal2);border-radius:100px;padding:2px 8px;font-size:10px;font-weight:700;color:var(--teal);margin-bottom:4px}
+.avail-dot{width:5px;height:5px;border-radius:50%;background:var(--teal)}
+
+/* ── SPECIALTIES ── */
+.spec-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(clamp(130px,16%,175px),1fr));gap:12px}
+.spec-card{background:var(--card);border:0.5px solid var(--border);border-radius:var(--radius2);padding:clamp(14px,1.8vw,20px);display:flex;flex-direction:column;align-items:center;gap:9px;cursor:pointer;text-align:center;transition:all 0.25s;position:relative}
+.spec-card.sc-open{border-color:rgba(0,201,167,0.4);background:var(--teal2)}
+.spec-card:not(.sc-open):hover{background:var(--card2);border-color:rgba(0,201,167,0.25);transform:translateY(-3px)}
+.sc-icon{font-size:clamp(24px,2.5vw,30px)}
+.sc-name{font-size:clamp(11.5px,1.1vw,13px);font-weight:700;color:var(--white);line-height:1.25}
+.sc-count{font-size:10.5px;color:var(--muted)}
+.sc-arrow{font-size:12px;color:var(--teal);transition:transform 0.3s}
+.sc-open .sc-arrow{transform:rotate(180deg)}
+/* INLINE EXPAND */
+.spec-expand{display:none;grid-column:1/-1;background:var(--bg3);border:0.5px solid rgba(0,201,167,0.2);border-radius:var(--radius2);padding:clamp(18px,2.5vw,28px);margin-top:4px;animation:scaleIn 0.3s var(--ease)}
+.spec-expand.open{display:block}
+.se-header{display:flex;align-items:flex-start;gap:16px;margin-bottom:18px;flex-wrap:wrap}
+.se-icon-big{width:54px;height:54px;border-radius:14px;background:var(--teal2);display:flex;align-items:center;justify-content:center;font-size:24px;flex-shrink:0}
+.se-title{font-family:var(--ff-h);font-size:clamp(18px,2.5vw,24px);margin-bottom:4px}
+.se-sub{font-size:12.5px;color:var(--teal);font-weight:600;margin-bottom:6px}
+.se-desc{font-size:13.5px;color:var(--muted);line-height:1.75;max-width:700px}
+.se-divider{height:0.5px;background:var(--border);margin:16px 0}
+.se-row{display:grid;grid-template-columns:1fr 1fr;gap:18px;margin-bottom:16px}
+.se-section-label{font-size:10.5px;font-weight:700;color:var(--muted);letter-spacing:0.08em;text-transform:uppercase;margin-bottom:9px}
+.se-tags{display:flex;gap:7px;flex-wrap:wrap}
+.se-tag{background:var(--card2);border:0.5px solid var(--border2);border-radius:7px;padding:5px 11px;font-size:12px;color:var(--white)}
+.se-when{background:var(--gold2);border:0.5px solid rgba(245,166,35,0.2);border-radius:var(--radius);padding:13px 15px;font-size:13px;color:var(--muted);line-height:1.68}
+.se-when strong{color:var(--gold)}
+.se-actions{display:flex;gap:10px;flex-wrap:wrap;margin-top:16px}
+
+/* ── MEDICINES ── */
+.med-grid{display:grid;grid-template-columns:1fr 1fr;gap:18px;margin-top:36px}
+.med-card{background:var(--card);border:0.5px solid var(--border);border-radius:var(--radius2);padding:clamp(20px,2.5vw,30px);transition:all 0.25s;cursor:pointer;position:relative;overflow:hidden}
+.med-card::before{content:'';position:absolute;top:0;left:0;bottom:0;width:3px;background:var(--accent-color,var(--teal));border-radius:0 2px 2px 0}
+.med-card:hover{border-color:var(--accent-color,rgba(0,201,167,0.3));transform:translateY(-4px);box-shadow:0 14px 40px rgba(0,0,0,0.3)}
+.mc-icon{font-size:32px;margin-bottom:12px;display:block}
+.mc-title{font-size:17px;font-weight:700;margin-bottom:7px}
+.mc-desc{font-size:13px;color:var(--muted);line-height:1.65;margin-bottom:18px}
+.mc-features{display:flex;flex-direction:column;gap:7px;margin-bottom:20px}
+.mc-feat{display:flex;align-items:center;gap:8px;font-size:12.5px;color:var(--muted)}
+.mc-feat::before{content:'✓';color:var(--teal);font-weight:700;flex-shrink:0}
+
+/* ── NEARBY ── */
+.nearby-grid{display:grid;grid-template-columns:1fr 1.2fr;gap:24px;margin-top:36px;align-items:start}
+.nearby-list{display:flex;flex-direction:column;gap:12px}
+.nearby-item{background:var(--card);border:0.5px solid var(--border);border-radius:var(--radius2);padding:16px 18px;display:flex;gap:13px;align-items:flex-start;cursor:pointer;transition:all 0.22s}
+.nearby-item:hover{border-color:var(--accent-color,rgba(0,201,167,0.3));background:var(--card2);transform:translateX(4px)}
+.ni-icon-box{width:40px;height:40px;border-radius:11px;display:flex;align-items:center;justify-content:center;font-size:18px;flex-shrink:0}
+.ni-name{font-size:14px;font-weight:700;margin-bottom:2px}
+.ni-addr{font-size:11.5px;color:var(--muted);margin-bottom:5px}
+.ni-tags{display:flex;gap:6px;flex-wrap:wrap}
+.ni-tag{font-size:10.5px;font-weight:600;border-radius:6px;padding:2px 8px}
+.nt-open{background:var(--teal2);color:var(--teal)}
+.nt-dist{background:var(--blue2);color:var(--blue)}
+.nt-ambu{background:var(--red2);color:var(--red)}
+.map-mock{background:var(--bg3);border:0.5px solid var(--border2);border-radius:var(--radius3);overflow:hidden;position:relative;min-height:320px}
+.map-bg{width:100%;height:100%;min-height:320px;background:linear-gradient(135deg,#0A1828 0%,#0D2035 40%,#081420 100%);position:relative;overflow:hidden}
+.map-grid-lines{position:absolute;inset:0;background-image:linear-gradient(rgba(74,158,255,0.06) 1px,transparent 1px),linear-gradient(90deg,rgba(74,158,255,0.06) 1px,transparent 1px);background-size:40px 40px}
+.map-road{position:absolute;background:rgba(255,255,255,0.06);border-radius:3px}
+.map-pin{position:absolute;display:flex;flex-direction:column;align-items:center;cursor:pointer;transition:transform 0.2s}
+.map-pin:hover{transform:scale(1.2) translateY(-3px)}
+.mp-dot{width:28px;height:28px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:13px;box-shadow:0 4px 12px rgba(0,0,0,0.5)}
+.mp-label{font-size:9.5px;font-weight:700;margin-top:3px;white-space:nowrap;text-align:center;background:var(--bg2);border-radius:5px;padding:2px 5px}
+.map-user{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);display:flex;flex-direction:column;align-items:center}
+.mu-dot{width:14px;height:14px;border-radius:50%;background:var(--teal);animation:pulse 2s infinite;border:2px solid #fff}
+.mu-ring{width:40px;height:40px;border-radius:50%;background:rgba(0,201,167,0.12);border:0.5px solid rgba(0,201,167,0.3);position:absolute;animation:pulse 2s infinite}
+.map-legend{position:absolute;bottom:12px;left:12px;display:flex;flex-direction:column;gap:5px;background:rgba(6,14,31,0.8);border-radius:9px;padding:10px 12px;backdrop-filter:blur(8px)}
+.ml-item{display:flex;align-items:center;gap:6px;font-size:10.5px;color:var(--muted)}
+.ml-dot{width:10px;height:10px;border-radius:50%}
+
+/* ── EMERGENCY ── */
+#emergency{background:var(--bg2);position:relative;overflow:hidden}
+#emergency::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse 60% 70% at 50% 50%,rgba(255,64,96,0.05) 0%,transparent 70%)}
+.emg-layout{display:grid;grid-template-columns:1fr 1fr;gap:clamp(36px,5vw,72px);align-items:center;position:relative;z-index:1}
+.emg-options{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin:24px 0}
+.emg-opt{border-radius:var(--radius2);padding:clamp(16px,2vw,22px);cursor:pointer;transition:all 0.25s;text-align:center;display:flex;flex-direction:column;align-items:center;gap:9px;border:1.5px solid transparent}
+.emg-opt-r{background:var(--red2);border-color:rgba(255,64,96,0.2)}
+.emg-opt-r:hover{background:rgba(255,64,96,0.18);border-color:var(--red);transform:scale(1.03)}
+.emg-opt-b{background:var(--blue2);border-color:rgba(74,158,255,0.2)}
+.emg-opt-b:hover{background:rgba(74,158,255,0.18);border-color:var(--blue);transform:scale(1.03)}
+.eo-icon{font-size:28px}
+.eo-title{font-size:14px;font-weight:700}
+.eo-time{font-size:10.5px;font-weight:700;border-radius:100px;padding:3px 10px}
+.eo-time-r{background:rgba(255,64,96,0.2);color:var(--red)}
+.eo-time-b{background:rgba(74,158,255,0.2);color:var(--blue)}
+.eo-desc{font-size:12px;color:var(--muted);line-height:1.5}
+.emg-steps-list{display:flex;flex-direction:column;gap:12px}
+.emg-step{display:flex;gap:12px;align-items:flex-start;background:rgba(255,64,96,0.04);border:0.5px solid rgba(255,64,96,0.1);border-radius:var(--radius);padding:14px}
+.es-num{width:26px;height:26px;border-radius:50%;background:rgba(255,64,96,0.18);display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:700;color:var(--red);flex-shrink:0}
+.es-title{font-size:13.5px;font-weight:700;margin-bottom:2px}
+.es-desc{font-size:12px;color:var(--muted)}
+/* Animated pulse circle */
+.emg-visual{display:flex;justify-content:center;align-items:center}
+.emg-rings{position:relative;width:280px;height:280px;display:flex;align-items:center;justify-content:center}
+.er-ring{position:absolute;border-radius:50%;border:0.5px solid rgba(255,64,96,0.15);animation:emgRing 3s infinite}
+.er-r1{width:280px;height:280px;animation-delay:0s}
+.er-r2{width:210px;height:210px;animation-delay:0.6s}
+.er-r3{width:148px;height:148px;animation-delay:1.2s;border-color:rgba(255,64,96,0.25)}
+.er-core{width:90px;height:90px;border-radius:50%;background:rgba(255,64,96,0.1);border:1.5px solid rgba(255,64,96,0.3);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:4px;position:relative;z-index:1}
+.er-core-icon{font-size:28px}
+.er-core-label{font-size:9px;font-weight:700;color:var(--red);letter-spacing:0.07em}
+@keyframes emgRing{0%{transform:scale(1);opacity:0.6}50%{transform:scale(1.06);opacity:0.3}100%{transform:scale(1);opacity:0.6}}
+
+/* ── DONATION SECTION (bottom) ── */
+#donation-bottom{background:var(--bg3);border-top:0.5px solid var(--border)}
+.donation-intro{display:grid;grid-template-columns:1fr 1fr;gap:clamp(32px,4vw,64px);align-items:center;margin-bottom:52px}
+.donation-stats{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-top:28px}
+.don-stat{background:var(--card);border:0.5px solid var(--border);border-radius:var(--radius2);padding:18px;text-align:center}
+.don-stat-n{font-family:var(--ff-h);font-size:clamp(22px,3vw,30px);color:var(--teal)}
+.don-stat-l{font-size:12px;color:var(--muted);margin-top:3px}
+.campaigns-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(clamp(240px,28%,300px),1fr));gap:18px;margin-bottom:44px}
+.campaign-card{background:var(--card);border:0.5px solid var(--border);border-radius:var(--radius2);overflow:hidden;transition:all 0.25s}
+.campaign-card:hover{border-color:rgba(245,166,35,0.35);transform:translateY(-4px);box-shadow:0 14px 40px rgba(0,0,0,0.3)}
+.cc-img{height:120px;background:var(--bg4);display:flex;align-items:center;justify-content:center;font-size:48px;position:relative;overflow:hidden}
+.cc-img-bg{position:absolute;inset:0;opacity:0.15;background-size:cover}
+.cc-urgent{position:absolute;top:10px;right:10px;background:var(--red);color:#fff;border-radius:100px;padding:3px 9px;font-size:9.5px;font-weight:700}
+.cc-body{padding:16px}
+.cc-name{font-size:14px;font-weight:700;margin-bottom:3px}
+.cc-disease{font-size:12px;color:var(--teal);font-weight:600;margin-bottom:7px}
+.cc-desc{font-size:12px;color:var(--muted);line-height:1.6;margin-bottom:12px;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+.progress-bar-wrap{margin-bottom:10px}
+.pb-labels{display:flex;justify-content:space-between;font-size:11px;margin-bottom:5px}
+.pb-raised{color:var(--teal);font-weight:700}
+.pb-goal{color:var(--muted)}
+.progress-bar{height:5px;background:var(--faint);border-radius:100px;overflow:hidden}
+.pb-fill{height:100%;border-radius:100px;background:linear-gradient(90deg,var(--teal),var(--blue));transition:width 1s ease}
+.cc-foot{display:flex;justify-content:space-between;align-items:center}
+.cc-donors{font-size:11.5px;color:var(--muted)}
+/* top donors */
+.donors-section{border-top:0.5px solid var(--border);padding-top:36px}
+.donors-title{font-size:13px;font-weight:700;color:var(--muted);letter-spacing:0.06em;text-transform:uppercase;margin-bottom:18px;text-align:center}
+.donors-row{display:flex;gap:14px;flex-wrap:wrap;justify-content:center;align-items:center}
+.donor-company{display:flex;align-items:center;gap:8px;background:var(--card);border:0.5px solid var(--border2);border-radius:var(--radius);padding:10px 16px;transition:all 0.2s;cursor:pointer}
+.donor-company:hover{border-color:var(--gold);background:var(--gold2)}
+.donor-logo{font-size:18px}
+.donor-name{font-size:13px;font-weight:700;color:rgba(232,240,255,0.6)}
+.donor-amount{font-size:11px;color:var(--gold);font-weight:700}
+
+/* ── DONATION PAGE (full overlay) ── */
+#donationPage{position:fixed;inset:0;z-index:900;background:var(--bg);transform:translateY(100%);transition:transform 0.45s var(--ease);overflow-y:auto}
+#donationPage.dp-open{transform:translateY(0)}
+.dp-nav{position:sticky;top:0;z-index:10;background:rgba(6,14,31,0.9);backdrop-filter:blur(20px);border-bottom:0.5px solid var(--border);padding:0 clamp(14px,4vw,48px);height:60px;display:flex;align-items:center;justify-content:space-between}
+.dp-back{display:flex;align-items:center;gap:8px;font-size:14px;font-weight:600;color:var(--muted);cursor:pointer;transition:color 0.2s}
+.dp-back:hover{color:var(--white)}
+.dp-title{font-family:var(--ff-h);font-size:18px}
+.dp-inner{max-width:1140px;margin:0 auto;padding:clamp(28px,4vw,52px) clamp(14px,4vw,48px)}
+.dp-hero{text-align:center;padding:clamp(24px,3vw,40px) 0;border-bottom:0.5px solid var(--border);margin-bottom:36px}
+.dp-hero-icon{font-size:52px;margin-bottom:12px;animation:heartbeat 2s infinite;display:inline-block}
+.dp-hero-title{font-family:var(--ff-h);font-size:clamp(28px,4vw,44px);margin-bottom:10px}
+.dp-hero-sub{font-size:15px;color:var(--muted);max-width:500px;margin:0 auto}
+.dp-two-col{display:grid;grid-template-columns:1fr 1.1fr;gap:clamp(24px,3vw,44px);align-items:start}
+.dp-campaigns{display:flex;flex-direction:column;gap:16px}
+.dp-campaign{background:var(--bg2);border:0.5px solid var(--border2);border-radius:var(--radius2);padding:18px 20px;display:flex;gap:14px;align-items:flex-start;cursor:pointer;transition:all 0.25s}
+.dp-campaign:hover{border-color:rgba(245,166,35,0.4);background:var(--bg3)}
+.dp-cava{width:54px;height:54px;border-radius:12px;background:var(--bg3);display:flex;align-items:center;justify-content:center;font-size:24px;flex-shrink:0}
+.dp-cname{font-size:14.5px;font-weight:700;margin-bottom:2px}
+.dp-cdisease{font-size:12px;color:var(--teal);font-weight:600;margin-bottom:5px}
+.dp-cdesc{font-size:12px;color:var(--muted);line-height:1.58;margin-bottom:8px}
+.dp-progress{margin-bottom:7px}
+.dp-cfoot{display:flex;justify-content:space-between;align-items:center;font-size:12px}
+.dp-raised{color:var(--teal);font-weight:700}
+.dp-goal{color:var(--muted)}
+/* Create campaign form */
+.create-form{background:var(--bg2);border:0.5px solid var(--border2);border-radius:var(--radius3);padding:clamp(20px,3vw,32px);position:sticky;top:70px}
+.cf-title{font-size:17px;font-weight:700;margin-bottom:6px}
+.cf-sub{font-size:12.5px;color:var(--muted);margin-bottom:22px}
+.fg{margin-bottom:14px}
+.fl{display:block;font-size:10.5px;font-weight:700;color:var(--muted);letter-spacing:0.06em;text-transform:uppercase;margin-bottom:5px}
+.fi{width:100%;background:var(--bg);border:0.5px solid var(--border2);border-radius:var(--radius);padding:10px 13px;color:var(--white);font-family:var(--ff-b);font-size:13.5px;outline:none;transition:border-color 0.2s}
+.fi:focus{border-color:var(--teal)}
+.fi::placeholder{color:var(--faint)}
+select.fi option{background:var(--bg2)}
+.photo-upload{border:1.5px dashed var(--border2);border-radius:var(--radius);padding:clamp(18px,2vw,26px);text-align:center;cursor:pointer;transition:all 0.22s;background:var(--card)}
+.photo-upload:hover{border-color:var(--teal);background:var(--teal2)}
+.pu-icon{font-size:28px;margin-bottom:7px}
+.pu-text{font-size:12.5px;color:var(--muted)}
+.pu-text strong{color:var(--teal)}
+
+/* ── MODAL ── */
+#modalOv{display:none;position:fixed;inset:0;z-index:1000;background:rgba(0,0,0,0.7);backdrop-filter:blur(16px);align-items:center;justify-content:center;padding:14px}
+#modalOv.open{display:flex}
+.modal{background:var(--bg2);border:0.5px solid var(--border2);border-radius:var(--radius3);width:100%;max-height:90vh;overflow-y:auto;position:relative;box-shadow:var(--shadow);animation:scaleIn 0.3s var(--ease)}
+.modal-x{position:sticky;top:0;float:right;margin:12px 12px -12px 0;width:30px;height:30px;border-radius:8px;background:var(--card2);border:0.5px solid var(--border);cursor:pointer;color:var(--muted);font-size:14px;display:flex;align-items:center;justify-content:center;z-index:5;transition:all 0.2s}
+.modal-x:hover{color:var(--white);background:var(--card)}
+/* doc modal */
+.dm-top{padding:clamp(18px,2.5vw,28px);border-bottom:0.5px solid var(--border);display:flex;gap:18px;align-items:flex-start;flex-wrap:wrap}
+.dm-ava-lg{width:clamp(72px,9vw,96px);height:clamp(72px,9vw,96px);border-radius:18px;overflow:hidden;border:1.5px solid var(--border2);flex-shrink:0}
+.dm-ava-lg svg{width:100%;height:100%}
+.dm-main-info{flex:1;min-width:180px}
+.dm-name{font-family:var(--ff-h);font-size:clamp(20px,2.8vw,28px);margin-bottom:3px}
+.dm-spec{font-size:13px;color:var(--teal);font-weight:700;margin-bottom:2px}
+.dm-hosp{font-size:12.5px;color:var(--muted);margin-bottom:10px}
+.dm-badges{display:flex;gap:7px;flex-wrap:wrap}
+.dm-badge{font-size:11px;font-weight:700;border-radius:100px;padding:4px 11px;border:0.5px solid}
+.dmb-t{background:var(--teal2);color:var(--teal);border-color:rgba(0,201,167,0.25)}
+.dmb-g{background:var(--gold2);color:var(--gold);border-color:rgba(245,166,35,0.25)}
+.dmb-b{background:var(--blue2);color:var(--blue);border-color:rgba(74,158,255,0.25)}
+.dm-stats-row{display:flex;gap:clamp(14px,2vw,24px);padding:clamp(12px,2vw,18px) clamp(18px,2.5vw,28px);border-bottom:0.5px solid var(--border);flex-wrap:wrap}
+.dm-sq{display:flex;flex-direction:column;align-items:center}
+.dm-sqv{font-size:clamp(16px,2vw,22px);font-weight:700}
+.dm-sql{font-size:11px;color:var(--muted)}
+.dm-tabs{display:flex;border-bottom:0.5px solid var(--border);padding:0 clamp(14px,2.5vw,26px);overflow-x:auto;scrollbar-width:none}
+.dm-tabs::-webkit-scrollbar{display:none}
+.dm-tab{padding:13px 16px;font-family:var(--ff-b);font-size:13px;font-weight:600;color:var(--muted);cursor:pointer;border:none;background:none;border-bottom:2px solid transparent;transition:all 0.2s;margin-bottom:-0.5px;white-space:nowrap}
+.dm-tab.active{color:var(--teal);border-bottom-color:var(--teal)}
+.dm-tab-body{padding:clamp(14px,2.5vw,24px);display:none}
+.dm-tab-body.active{display:block}
+.dm-about-p{font-size:13.5px;color:var(--muted);line-height:1.78;margin-bottom:14px}
+.dm-section-lbl{font-size:10.5px;font-weight:700;color:var(--muted);letter-spacing:0.08em;text-transform:uppercase;margin:18px 0 9px;padding-top:14px;border-top:0.5px solid var(--border)}
+.skill-tags{display:flex;gap:7px;flex-wrap:wrap;margin-bottom:14px}
+.skill-tag{background:var(--card2);border:0.5px solid var(--border2);border-radius:8px;padding:5px 11px;font-size:12px;color:var(--white)}
+.deg-item{background:var(--card);border:0.5px solid var(--border);border-radius:var(--radius);padding:15px;display:flex;gap:13px;margin-bottom:9px}
+.di-icon{width:38px;height:38px;border-radius:10px;background:var(--gold2);display:flex;align-items:center;justify-content:center;font-size:17px;flex-shrink:0}
+.di-title{font-size:13.5px;font-weight:700;margin-bottom:2px}
+.di-inst{font-size:12px;color:var(--teal)}
+.di-yr{font-size:11px;color:var(--muted)}
+.di-verified{display:inline-flex;align-items:center;gap:4px;background:var(--teal2);border-radius:100px;padding:2px 8px;font-size:10px;font-weight:700;color:var(--teal);margin-top:5px}
+.rev-item{background:var(--card);border:0.5px solid var(--border);border-radius:var(--radius);padding:14px;margin-bottom:9px}
+.ri-hdr{display:flex;justify-content:space-between;margin-bottom:5px}
+.ri-author{font-size:13px;font-weight:700}
+.ri-date{font-size:11px;color:var(--muted)}
+.ri-stars{color:var(--gold);font-size:12px;margin-bottom:5px}
+.ri-text{font-size:13px;color:var(--muted);line-height:1.65}
+.vid-thumb{background:var(--bg3);border-radius:var(--radius);aspect-ratio:16/9;display:flex;align-items:center;justify-content:center;cursor:pointer;margin-bottom:9px;position:relative;overflow:hidden;border:0.5px solid var(--border);transition:border-color 0.2s}
+.vid-thumb:hover{border-color:var(--teal)}
+.vt-play{width:50px;height:50px;border-radius:50%;background:var(--teal2);border:1.5px solid var(--teal);display:flex;align-items:center;justify-content:center;font-size:18px}
+.vt-lbl{position:absolute;bottom:0;left:0;right:0;padding:9px 13px;background:linear-gradient(0,rgba(6,14,31,0.9),transparent);font-size:11.5px;font-weight:700}
+/* simple modal */
+.sm-pad{padding:clamp(18px,3vw,28px)}
+.sm-icon{text-align:center;font-size:44px;margin-bottom:10px}
+.sm-title{font-family:var(--ff-h);font-size:clamp(18px,2.5vw,24px);text-align:center;margin-bottom:7px}
+.sm-desc{font-size:13.5px;color:var(--muted);text-align:center;line-height:1.7;margin-bottom:20px}
+.sm-btns{display:flex;flex-direction:column;gap:9px}
+/* medicine modal */
+.med-modal{padding:clamp(18px,3vw,28px)}
+
+/* ── FOOTER ── */
+footer{background:#030A18;border-top:0.5px solid var(--border);padding:clamp(36px,5vw,60px) clamp(14px,4vw,56px) clamp(20px,3vw,32px)}
+.ft-inner{max-width:1240px;margin:0 auto}
+.ft-grid{display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:clamp(20px,3vw,52px);margin-bottom:36px}
+.ft-brand{display:flex;flex-direction:column;gap:11px}
+.ft-tagline{font-size:12.5px;color:var(--muted);line-height:1.65;max-width:230px}
+.ft-badges{display:flex;gap:6px;flex-wrap:wrap}
+.ftb{font-size:9.5px;font-weight:700;padding:3px 9px;border-radius:100px;letter-spacing:0.04em}
+.ftb-t{background:var(--teal2);color:var(--teal)} .ftb-g{background:var(--gold2);color:var(--gold)}
+.ft-col-title{font-size:10px;font-weight:700;color:var(--muted);letter-spacing:0.09em;text-transform:uppercase;margin-bottom:13px}
+.ft-links{display:flex;flex-direction:column;gap:8px}
+.ft-links a{font-size:12.5px;color:rgba(232,240,255,0.45);transition:color 0.2s}
+.ft-links a:hover{color:var(--white)}
+.ft-bottom{display:flex;justify-content:space-between;align-items:center;padding-top:22px;border-top:0.5px solid var(--border);flex-wrap:wrap;gap:10px}
+.ft-copy{font-size:11.5px;color:rgba(107,135,184,0.6)}
+.ft-legal{display:flex;gap:14px;flex-wrap:wrap}
+.ft-legal a{font-size:11px;color:rgba(107,135,184,0.5);transition:color 0.2s}
+.ft-legal a:hover{color:var(--muted)}
+.ft-donate-strip{background:linear-gradient(135deg,rgba(255,64,96,0.08),rgba(245,166,35,0.06));border:0.5px solid rgba(255,64,96,0.15);border-radius:var(--radius2);padding:clamp(16px,2vw,22px) clamp(18px,3vw,28px);display:flex;align-items:center;justify-content:space-between;gap:16px;margin-bottom:32px;flex-wrap:wrap}
+.fds-left{display:flex;align-items:center;gap:12px}
+.fds-icon{font-size:28px;animation:heartbeat 2.5s infinite}
+.fds-title{font-size:15px;font-weight:700;margin-bottom:2px}
+.fds-sub{font-size:12.5px;color:var(--muted)}
+
+/* ── RESPONSIVE ── */
+@media(max-width:1040px){
+  #hero{grid-template-columns:1fr;padding-top:calc(62px + 36px)}
+  .hero-right{display:none}
+  .emg-layout{grid-template-columns:1fr}
+  .emg-visual{display:none}
+  .donation-intro{grid-template-columns:1fr}
+  .nearby-grid{grid-template-columns:1fr}
+  .map-mock{display:none}
+  .dp-two-col{grid-template-columns:1fr}
+  .create-form{position:static}
+}
+@media(max-width:768px){
+  #nav .nav-center{display:none}
+  .hamburger{display:flex}
+  .med-grid{grid-template-columns:1fr}
+  .ft-grid{grid-template-columns:1fr 1fr;gap:24px}
+  .emg-options{grid-template-columns:1fr}
+  .donation-stats{grid-template-columns:1fr 1fr}
+  .campaigns-grid{grid-template-columns:1fr}
+}
+@media(max-width:480px){
+  .hero-actions{flex-direction:column}
+  .hero-actions .btn,.hero-actions a{width:100%;justify-content:center}
+  .hero-stats{gap:14px}
+  .spec-grid{grid-template-columns:repeat(2,1fr)}
+  .doc-grid{grid-template-columns:1fr}
+  .se-row{grid-template-columns:1fr}
+  .donation-stats{grid-template-columns:1fr}
+  .ft-grid{grid-template-columns:1fr}
+  .dm-stats-row{gap:12px}
+  .dm-tabs{padding:0 10px}
+}
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav id="nav">
+  <a href="#" class="nav-logo" onclick="scrollTop()">
+    <div class="nav-logo-mark">🩺</div>Medi<span>Connect</span>
+  </a>
+  <div class="nav-center">
+    <a href="#doctors">Find Doctors</a>
+    <a href="#specialties">Specialties</a>
+    <a href="#medicines">Medicines</a>
+    <a href="#nearby">Nearby</a>
+  </div>
+  <div class="nav-right">
+    <button class="btn-emg-nav" onclick="openEmergency()">🚨 Emergency</button>
+    <button class="btn-signin" onclick="openModal('signin')">Sign In</button>
+    <button class="hamburger" onclick="toggleDrawer()" aria-label="Menu">
+      <span class="hb-line"></span><span class="hb-line"></span><span class="hb-line"></span>
+    </button>
+  </div>
+</nav>
+
+<!-- DRAWER -->
+<div class="drawer-overlay" id="drawerOv" onclick="toggleDrawer()"></div>
+<div class="drawer" id="drawer">
+  <div class="drawer-section">
+    <div class="drawer-label">For Patients</div>
+    <a href="#doctors" onclick="toggleDrawer()"><div class="d-icon" style="background:var(--teal2)">🔍</div>Find Doctors</a>
+    <a href="#specialties" onclick="toggleDrawer()"><div class="d-icon" style="background:var(--blue2)">🩺</div>Browse Specialties</a>
+    <a href="#medicines" onclick="toggleDrawer()"><div class="d-icon" style="background:var(--gold2)">💊</div>Buy Medicines</a>
+    <a href="#nearby" onclick="toggleDrawer()"><div class="d-icon" style="background:rgba(74,158,255,0.15)">📍</div>Nearby Pharmacies</a>
+    <a href="#" onclick="toggleDrawer();openDonationPage()"><div class="d-icon" style="background:var(--red2)">❤️</div>Save a Life — Donate</a>
+  </div>
+  <div class="drawer-section">
+    <div class="drawer-label">For Doctors</div>
+    <a href="#register" onclick="toggleDrawer()"><div class="d-icon" style="background:var(--teal2)">🏥</div>Join as Doctor</a>
+    <a href="#" onclick="toggleDrawer();openModal('doclogin')"><div class="d-icon" style="background:var(--card2)">🔐</div>Doctor Login</a>
+    <a href="#" onclick="toggleDrawer()"><div class="d-icon" style="background:var(--card2)">💰</div>Earnings & Payouts</a>
+  </div>
+  <div class="drawer-section">
+    <div class="drawer-label">Company</div>
+    <a href="#" onclick="toggleDrawer()"><div class="d-icon" style="background:var(--card2)">ℹ️</div>About MediConnect</a>
+    <a href="#" onclick="toggleDrawer()"><div class="d-icon" style="background:var(--card2)">📞</div>Contact Support</a>
+    <a href="#" onclick="toggleDrawer()"><div class="d-icon" style="background:var(--card2)">📄</div>Telemedicine Policy</a>
+    <a href="#" onclick="toggleDrawer()"><div class="d-icon" style="background:var(--card2)">🌐</div>Available Languages</a>
+  </div>
+</div>
+
+<!-- HERO -->
+<section style="background:var(--bg);overflow:hidden">
+<div id="hero">
+  <div>
+    <div class="hero-badge"><div class="live-dot"></div>12,000+ Verified Doctors Online</div>
+    <h1>Healthcare for<br>Every <em>Indian,</em><br>Everywhere.</h1>
+    <p class="hero-desc">Consult verified doctors via video, book appointments, buy medicines, get emergency help — and help save lives through our donation platform.</p>
+    <div class="hero-loc-search">
+      <div class="loc-input-wrap">
+        <span class="loc-icon">📍</span>
+        <input type="text" placeholder="Enter your city or pincode…" id="locInput">
+      </div>
+      <div class="loc-input-wrap" style="flex:1.5">
+        <span class="loc-icon">🔍</span>
+        <input type="text" placeholder="Search doctor, specialty, symptom…" id="docSearchInput" oninput="liveSearch(this.value)">
+      </div>
+      <button class="btn btn-p" onclick="triggerSearch()" style="height:46px;padding:0 20px">Search</button>
+    </div>
+    <div class="hero-actions">
+      <a href="#doctors" class="btn btn-p">Find a Doctor</a>
+      <button class="btn btn-r" onclick="openEmergency()">🚨 Emergency Now</button>
+      <button class="btn btn-o" onclick="openDonationPage()">❤️ Save a Life</button>
+    </div>
+    <div class="hero-stats">
+      <div class="stat"><div class="stat-n" id="stat1">12K+</div><div class="stat-l">Verified Doctors</div></div>
+      <div class="stat-sep"></div>
+      <div class="stat"><div class="stat-n" id="stat2">4.8M+</div><div class="stat-l">Patients Helped</div></div>
+      <div class="stat-sep"></div>
+      <div class="stat"><div class="stat-n">&lt;60s</div><div class="stat-l">Emergency Response</div></div>
+      <div class="stat-sep"></div>
+      <div class="stat"><div class="stat-n">28</div><div class="stat-l">States Covered</div></div>
+    </div>
+  </div>
+  <div class="hero-right" id="heroRight">
+    <div class="hero-panel">
+      <div class="panel-hdr">
+        <span class="panel-title-sm">Doctors Online Now</span>
+        <div class="live-badge"><div class="live-dot"></div>1,247 Live</div>
+      </div>
+      <div class="doc-rows" id="heroDocRows"></div>
+    </div>
+    <div class="save-life-card" onclick="openDonationPage()">
+      <div class="slc-icon">❤️</div>
+      <div style="flex:1">
+        <div class="slc-title">You could save a life today</div>
+        <div class="slc-sub">2,400 patients need your help right now</div>
+      </div>
+      <button class="slc-btn">Donate →</button>
+    </div>
+  </div>
+</div>
+</section>
+
+<div class="divider"></div>
+
+<!-- QUICK ACCESS -->
+<section class="sec" style="background:var(--bg2)">
+<div class="inner">
+  <div class="tc reveal">
+    <div class="tag">⚡ Everything You Need</div>
+    <h2 class="h2">One Platform,<br><em>Complete Care</em></h2>
+  </div>
+  <div class="quick-grid" id="quickGrid"></div>
+</div>
+</section>
+
+<div class="divider"></div>
+
+<!-- FIND DOCTORS -->
+<section id="doctors" class="sec" style="background:var(--bg)">
+<div class="inner">
+  <div class="reveal">
+    <div class="tag">👨‍⚕️ Find Doctors</div>
+    <h2 class="h2">Consult <em>Verified</em> Specialists</h2>
+    <p class="sub">Search by name, specialty, location, or language. All doctors are NMC-registered. Click a doctor's name or photo to view their full profile.</p>
+  </div>
+  <div class="search-bar reveal" style="margin-top:28px">
+    <div class="search-input" style="flex:2">
+      <span style="color:var(--muted);font-size:15px">🔍</span>
+      <input type="text" placeholder="Doctor name, specialty, symptom…" id="docFilter" oninput="filterDocs(this.value)">
+    </div>
+    <div class="search-input">
+      <span style="color:var(--muted);font-size:15px">📍</span>
+      <input type="text" placeholder="City, pincode…" id="locFilter">
+    </div>
+    <button class="filter-pill fp-active" onclick="setDocFilter('all',this)">All</button>
+    <button class="filter-pill" onclick="setDocFilter('available',this)">Available Now</button>
+    <button class="filter-pill" onclick="setDocFilter('top',this)">Top Rated</button>
+    <button class="filter-pill" onclick="setDocFilter('low',this)">Low Fee</button>
+  </div>
+  <div class="doc-grid reveal" id="docGrid"></div>
+</div>
+</section>
+
+<div class="divider"></div>
+
+<!-- SPECIALTIES -->
+<section id="specialties" class="sec" style="background:var(--bg2)">
+<div class="inner">
+  <div class="reveal">
+    <div class="tag">🩺 Specialties</div>
+    <h2 class="h2">Find the Right <em>Specialist</em></h2>
+    <p class="sub">Click any specialty to learn what it treats, when to consult, and see available doctors — all inline below.</p>
+  </div>
+  <div class="search-bar reveal" style="margin-top:24px">
+    <div class="search-input">
+      <span style="color:var(--muted)">🔍</span>
+      <input type="text" placeholder="Search specialty…" oninput="filterSpecs(this.value)">
+    </div>
+    <button class="filter-pill fp-active" onclick="setSpecFilter('all',this)">All</button>
+    <button class="filter-pill" onclick="setSpecFilter('popular',this)">Most Booked</button>
+    <button class="filter-pill" onclick="setSpecFilter('emergency',this)">Emergency</button>
+  </div>
+  <div class="spec-grid reveal" id="specGrid"></div>
+  <div id="specExpandContainer"></div>
+</div>
+</section>
+
+<div class="divider"></div>
+
+<!-- MEDICINES -->
+<section id="medicines" class="sec" style="background:var(--bg)">
+<div class="inner">
+  <div class="reveal">
+    <div class="tag tag-gold">💊 Buy Medicines</div>
+    <h2 class="h2">Order Medicines<br><em>Delivered</em> to Your Door</h2>
+    <p class="sub">Browse medicines online or upload your prescription for verified fulfillment. Pan-India delivery in 4–24 hours.</p>
+  </div>
+  <div class="med-grid reveal">
+    <div class="med-card" style="--accent-color:var(--teal)" onclick="openModal('med-general')">
+      <span class="mc-icon">🛒</span>
+      <div class="mc-title">Buy Medicines Online</div>
+      <div class="mc-desc">Search from 50,000+ medicines, OTC products, health supplements, and wellness products. Genuine brands, best prices.</div>
+      <div class="mc-features">
+        <div class="mc-feat">Search by medicine name or generic</div>
+        <div class="mc-feat">Compare brands and prices</div>
+        <div class="mc-feat">Pan-India delivery in 4–24 hours</div>
+        <div class="mc-feat">Cold chain medicines available</div>
+        <div class="mc-feat">Ayushman Bharat & insurance accepted</div>
+      </div>
+      <button class="btn btn-p" style="width:100%;justify-content:center">Browse Medicines →</button>
+    </div>
+    <div class="med-card" style="--accent-color:var(--gold)" onclick="openModal('med-rx')">
+      <span class="mc-icon">📋</span>
+      <div class="mc-title">Order by Prescription</div>
+      <div class="mc-desc">Upload your doctor's prescription and our licensed pharmacists will dispense exactly what's prescribed — safely and accurately.</div>
+      <div class="mc-features">
+        <div class="mc-feat">Upload photo or PDF of prescription</div>
+        <div class="mc-feat">Verified by licensed pharmacist</div>
+        <div class="mc-feat">Controlled medicines handled safely</div>
+        <div class="mc-feat">MediConnect e-prescriptions auto-linked</div>
+        <div class="mc-feat">Refill reminders & subscription orders</div>
+      </div>
+      <button class="btn btn-gold" style="width:100%;justify-content:center">Upload Prescription →</button>
+    </div>
+  </div>
+</div>
+</section>
+
+<div class="divider"></div>
+
+<!-- NEARBY -->
+<section id="nearby" class="sec" style="background:var(--bg2)">
+<div class="inner">
+  <div class="reveal">
+    <div class="tag tag-gold">📍 Nearby</div>
+    <h2 class="h2">Pharmacies & Ambulances<br><em>Near You</em></h2>
+    <p class="sub">Find the nearest pharmacies, medical stores, and available ambulances. Location detected automatically or enter your area below.</p>
+  </div>
+  <div style="display:flex;gap:10px;margin:24px 0 20px;flex-wrap:wrap" class="reveal">
+    <div class="loc-input-wrap" style="flex:1;min-width:180px;background:var(--card);border:0.5px solid var(--border2)">
+      <span class="loc-icon">📍</span>
+      <input type="text" placeholder="Enter area, pincode…" style="flex:1;background:none;border:none;outline:none;color:var(--white);font-family:var(--ff-b);font-size:13.5px" value="Connaught Place, New Delhi">
+    </div>
+    <button class="filter-pill fp-active" onclick="setNearby('all',this)">All</button>
+    <button class="filter-pill" onclick="setNearby('pharmacy',this)">Pharmacies</button>
+    <button class="filter-pill" onclick="setNearby('ambulance',this)">Ambulances</button>
+    <button class="filter-pill" onclick="setNearby('hospital',this)">Hospitals</button>
+  </div>
+  <div class="nearby-grid reveal">
+    <div class="nearby-list" id="nearbyList"></div>
+    <div class="map-mock">
+      <div class="map-bg">
+        <div class="map-grid-lines"></div>
+        <!-- roads -->
+        <div class="map-road" style="top:48%;left:0;right:0;height:8px;transform:rotate(-3deg)"></div>
+        <div class="map-road" style="top:0;bottom:0;left:45%;width:8px"></div>
+        <div class="map-road" style="top:25%;left:0;right:40%;height:5px"></div>
+        <div class="map-road" style="top:70%;left:20%;right:0;height:5px;transform:rotate(2deg)"></div>
+        <!-- pins -->
+        <div class="map-pin" style="top:22%;left:28%">
+          <div class="mp-dot" style="background:var(--teal)">💊</div>
+          <div class="mp-label" style="color:var(--teal)">Apollo</div>
+        </div>
+        <div class="map-pin" style="top:35%;right:18%">
+          <div class="mp-dot" style="background:var(--gold)">🏥</div>
+          <div class="mp-label" style="color:var(--gold)">MedPlus</div>
+        </div>
+        <div class="map-pin" style="bottom:28%;left:22%">
+          <div class="mp-dot" style="background:var(--red)">🚑</div>
+          <div class="mp-label" style="color:var(--red)">Ambulance</div>
+        </div>
+        <div class="map-pin" style="bottom:18%;right:22%">
+          <div class="mp-dot" style="background:var(--teal)">💊</div>
+          <div class="mp-label" style="color:var(--teal)">Netmeds</div>
+        </div>
+        <div class="map-pin" style="top:18%;right:30%">
+          <div class="mp-dot" style="background:var(--red)">🚑</div>
+          <div class="mp-label" style="color:var(--red)">Ambulance</div>
+        </div>
+        <!-- user -->
+        <div class="map-user">
+          <div class="mu-ring"></div>
+          <div class="mu-dot"></div>
+        </div>
+        <!-- legend -->
+        <div class="map-legend">
+          <div class="ml-item"><div class="ml-dot" style="background:var(--teal)"></div>Pharmacy</div>
+          <div class="ml-item"><div class="ml-dot" style="background:var(--red)"></div>Ambulance</div>
+          <div class="ml-item"><div class="ml-dot" style="background:var(--gold)"></div>Hospital</div>
+          <div class="ml-item"><div class="ml-dot" style="background:var(--teal);animation:pulse 1.5s infinite"></div>You</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+</section>
+
+<div class="divider"></div>
+
+<!-- EMERGENCY -->
+<section id="emergency" class="sec">
+<div class="inner emg-layout">
+  <div class="reveal">
+    <div class="tag tag-red">🚨 Emergency</div>
+    <h2 class="h2">Emergency Help in<br><span class="red">60 Seconds.</span></h2>
+    <p class="sub">Two ways to get help instantly — dispatch a tracked ambulance or connect live to an emergency doctor or nurse via HD video.</p>
+    <div class="emg-options">
+      <div class="emg-opt emg-opt-r" onclick="openEmergency()">
+        <div class="eo-icon">🚑</div>
+        <div class="eo-title">Call Ambulance</div>
+        <div class="eo-time eo-time-r">Dispatched &lt;3 min</div>
+        <div class="eo-desc">GPS-tracked, paramedic-staffed. 800+ cities.</div>
+      </div>
+      <div class="emg-opt emg-opt-b" onclick="openEmergency()">
+        <div class="eo-icon">👨‍⚕️</div>
+        <div class="eo-title">Emergency Doctor</div>
+        <div class="eo-time eo-time-b">Connected &lt;60s</div>
+        <div class="eo-desc">Verified doctor/nurse guides you on live video.</div>
+      </div>
+    </div>
+    <div class="emg-steps-list">
+      <div class="emg-step"><div class="es-num">1</div><div><div class="es-title">Describe the emergency</div><div class="es-desc">Our AI triage routes you to the right specialist immediately.</div></div></div>
+      <div class="emg-step"><div class="es-num">2</div><div><div class="es-title">Doctor connects instantly</div><div class="es-desc">500+ emergency doctors on standby 24/7. Average wait: 42 seconds.</div></div></div>
+      <div class="emg-step"><div class="es-num">3</div><div><div class="es-title">Guided on-site support</div><div class="es-desc">Doctor guides you through CPR, first aid, or stabilisation until ambulance arrives.</div></div></div>
+    </div>
+    <div style="margin-top:24px">
+      <button class="btn btn-r" onclick="openEmergency()">🚨 Get Emergency Help Now</button>
+    </div>
+  </div>
+  <div class="emg-visual reveal reveal-delay-2">
+    <div class="emg-rings">
+      <div class="er-ring er-r1"></div>
+      <div class="er-ring er-r2"></div>
+      <div class="er-ring er-r3"></div>
+      <div class="er-core">
+        <div class="er-core-icon">🏥</div>
+        <div class="er-core-label">EMERGENCY</div>
+      </div>
+    </div>
+  </div>
+</div>
+</section>
+
+<div class="divider"></div>
+
+<!-- REGISTER -->
+<section id="register" class="sec" style="background:var(--bg2)">
+<div class="inner">
+  <div class="tc reveal">
+    <div class="tag">🏥 Join MediConnect</div>
+    <h2 class="h2">Register as Doctor or<br><em>Create Patient Account</em></h2>
+    <p class="sub">NMC-verified onboarding for doctors. Instant account for patients. Zero subscription fees to start.</p>
+  </div>
+  <div style="display:flex;gap:12px;width:fit-content;margin:32px auto 32px;border:0.5px solid var(--border);border-radius:var(--radius2);overflow:hidden">
+    <button id="regTabDoc" style="padding:10px 28px;background:var(--teal);color:#04111F;border:none;font-family:var(--ff-b);font-size:13.5px;font-weight:700;cursor:pointer;transition:all 0.2s" onclick="switchRegTab('doc')">👨‍⚕️ I'm a Doctor</button>
+    <button id="regTabPat" style="padding:10px 28px;background:transparent;color:var(--muted);border:none;font-family:var(--ff-b);font-size:13.5px;font-weight:600;cursor:pointer;transition:all 0.2s" onclick="switchRegTab('pat')">🧑 I'm a Patient</button>
+  </div>
+  <div id="regFormDoc" style="display:grid;grid-template-columns:1fr 1fr;gap:clamp(24px,3vw,48px);align-items:start" class="reveal">
+    <div style="background:var(--card);border:0.5px solid var(--border);border-radius:var(--radius3);padding:clamp(18px,2.5vw,28px)">
+      <div style="font-size:17px;font-weight:700;margin-bottom:20px">Doctor Registration</div>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px"><div class="fg"><label class="fl">Full Name</label><input class="fi" placeholder="Dr. Firstname Lastname"></div><div class="fg"><label class="fl">NMC Reg. No.</label><input class="fi" placeholder="MH-12345"></div></div>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px"><div class="fg"><label class="fl">Specialty</label><select class="fi"><option>Select</option><option>Cardiology</option><option>Neurology</option><option>Paediatrics</option><option>Dermatology</option><option>General Medicine</option></select></div><div class="fg"><label class="fl">Years Exp.</label><input class="fi" type="number" placeholder="e.g. 10"></div></div>
+      <div class="fg"><label class="fl">Hospital / Clinic</label><input class="fi" placeholder="Hospital or clinic name"></div>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px"><div class="fg"><label class="fl">Phone</label><input class="fi" type="tel" placeholder="+91 98765 43210"></div><div class="fg"><label class="fl">Email</label><input class="fi" type="email" placeholder="doctor@hospital.in"></div></div>
+      <div class="fg"><label class="fl">Consultation Fee (₹)</label><input class="fi" type="number" placeholder="e.g. 500"></div>
+      <div class="fg"><label class="fl">Upload Documents</label>
+        <div class="photo-upload"><div class="pu-icon">📎</div><div class="pu-text"><strong>Click to upload</strong> — Degree · NMC Cert · Aadhaar/PAN · Photo</div></div>
+      </div>
+      <button class="btn btn-p" style="width:100%;justify-content:center;margin-top:4px" onclick="openModal('docok')">Submit for Verification →</button>
+    </div>
+    <div style="display:flex;flex-direction:column;gap:13px;padding-top:4px">
+      <div style="background:var(--card);border:0.5px solid rgba(245,166,35,0.2);border-radius:var(--radius);padding:17px;display:flex;gap:12px"><span style="font-size:20px">📋</span><div><div style="font-size:13.5px;font-weight:700;color:var(--gold);margin-bottom:4px">Required Documents</div><div style="font-size:12px;color:var(--muted)">MBBS/MD Degree · NMC/State Certificate · Government ID · Passport Photo · Specialization Certificates</div></div></div>
+      <div style="background:var(--card);border:0.5px solid var(--border);border-radius:var(--radius);padding:17px;display:flex;gap:12px"><span style="font-size:20px">✅</span><div><div style="font-size:13.5px;font-weight:700;margin-bottom:4px">24–48hr Verification</div><div style="font-size:12px;color:var(--muted)">Credentials cross-checked with NMC and state bodies. Email update at every step.</div></div></div>
+      <div style="background:var(--card);border:0.5px solid var(--border);border-radius:var(--radius);padding:17px;display:flex;gap:12px"><span style="font-size:20px">💰</span><div><div style="font-size:13.5px;font-weight:700;margin-bottom:4px">Earnings & Payouts</div><div style="font-size:12px;color:var(--muted)">Set your own fee. UPI/NEFT payouts every 7 days. Avg earnings ₹40K–₹1.2L/month.</div></div></div>
+    </div>
+  </div>
+  <div id="regFormPat" style="display:none;grid-template-columns:1fr 1fr;gap:clamp(24px,3vw,48px);align-items:start" class="reveal">
+    <div style="background:var(--card);border:0.5px solid var(--border);border-radius:var(--radius3);padding:clamp(18px,2.5vw,28px)">
+      <div style="font-size:17px;font-weight:700;margin-bottom:20px">Create Patient Account</div>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px"><div class="fg"><label class="fl">Full Name</label><input class="fi" placeholder="Your full name"></div><div class="fg"><label class="fl">Date of Birth</label><input class="fi" type="date"></div></div>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px"><div class="fg"><label class="fl">Phone</label><input class="fi" type="tel" placeholder="+91 98765 43210"></div><div class="fg"><label class="fl">Gender</label><select class="fi"><option>Select</option><option>Male</option><option>Female</option><option>Other</option></select></div></div>
+      <div class="fg"><label class="fl">Email</label><input class="fi" type="email" placeholder="your@email.com"></div>
+      <div class="fg"><label class="fl">City / State</label><input class="fi" placeholder="Mumbai, Maharashtra"></div>
+      <div class="fg"><label class="fl">Health Concern (optional)</label><textarea class="fi" rows="2" placeholder="Describe your concern…"></textarea></div>
+      <button class="btn btn-p" style="width:100%;justify-content:center;margin-top:4px" onclick="openModal('patok')">Create My Account →</button>
+      <div style="display:flex;align-items:center;gap:10px;margin:12px 0 8px"><div style="flex:1;height:0.5px;background:var(--border)"></div><span style="font-size:11.5px;color:var(--muted)">or sign in with</span><div style="flex:1;height:0.5px;background:var(--border)"></div></div>
+      <div style="display:flex;gap:9px"><button class="btn btn-o" style="flex:1;font-size:13px">🔷 Google</button><button class="btn btn-o" style="flex:1;font-size:13px">📱 OTP Login</button></div>
+    </div>
+    <div style="display:flex;flex-direction:column;gap:13px;padding-top:4px">
+      <div style="background:var(--card);border:0.5px solid var(--border);border-radius:var(--radius);padding:17px;display:flex;gap:12px"><span style="font-size:20px">🔒</span><div><div style="font-size:13.5px;font-weight:700;margin-bottom:4px">Your Data is Safe</div><div style="font-size:12px;color:var(--muted)">Encrypted, stored on India-based servers. DPDPA 2023 compliant. Only you and your doctor can access.</div></div></div>
+      <div style="background:var(--card);border:0.5px solid var(--border);border-radius:var(--radius);padding:17px;display:flex;gap:12px"><span style="font-size:20px">🌐</span><div><div style="font-size:13.5px;font-weight:700;margin-bottom:4px">12 Indian Languages</div><div style="font-size:12px;color:var(--muted)">Hindi, Tamil, Telugu, Bengali, Marathi, Gujarati, Kannada, Malayalam & more.</div></div></div>
+      <div style="background:var(--card);border:0.5px solid var(--border);border-radius:var(--radius);padding:17px;display:flex;gap:12px"><span style="font-size:20px">💳</span><div><div style="font-size:13.5px;font-weight:700;margin-bottom:4px">Flexible Payment</div><div style="font-size:12px;color:var(--muted)">UPI, Cards, Net Banking, Wallets. Ayushman Bharat & insurance accepted.</div></div></div>
+    </div>
+  </div>
+</div>
+</section>
+
+<div class="divider"></div>
+
+<!-- DONATION BOTTOM SECTION -->
+<section id="donation-bottom" class="sec">
+<div class="inner">
+  <div class="ft-donate-strip reveal">
+    <div class="fds-left">
+      <div class="fds-icon">❤️</div>
+      <div>
+        <div class="fds-title">You can save a life today</div>
+        <div class="fds-sub">2,400+ patients in India need urgent financial help for their treatment</div>
+      </div>
+    </div>
+    <button class="btn btn-gold" onclick="openDonationPage()">❤️ Donate Now →</button>
+  </div>
+  <div class="donation-intro">
+    <div class="reveal">
+      <div class="tag tag-gold">❤️ Crowdfunding for Health</div>
+      <h2 class="h2">Help Someone <em>Fight</em><br>for Their Life</h2>
+      <p class="sub">MediConnect connects patients with donors across India. Every rupee goes directly to the patient's treatment — zero platform cut on donation amounts.</p>
+      <div class="donation-stats">
+        <div class="don-stat reveal reveal-delay-1"><div class="don-stat-n" data-target="2847">0</div><div class="don-stat-l">Lives Saved</div></div>
+        <div class="don-stat reveal reveal-delay-2"><div class="don-stat-n" data-target="142">₹0Cr</div><div class="don-stat-l">Total Raised</div></div>
+        <div class="don-stat reveal reveal-delay-3"><div class="don-stat-n" data-target="98000">0</div><div class="don-stat-l">Donors</div></div>
+      </div>
+    </div>
+    <div class="reveal reveal-delay-2">
+      <div style="font-size:14px;font-weight:700;color:var(--muted);letter-spacing:0.06em;text-transform:uppercase;margin-bottom:14px">Active Campaigns</div>
+      <div class="campaigns-grid" id="campaignsMini"></div>
+      <button class="btn btn-o" onclick="openDonationPage()" style="margin-top:8px;width:100%;justify-content:center">View All 2,400+ Campaigns →</button>
+    </div>
+  </div>
+  <div class="donors-section reveal">
+    <div class="donors-title">Top Donors & Corporate Partners</div>
+    <div class="donors-row" id="donorsRow"></div>
+  </div>
+</div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+<div class="ft-inner">
+  <div class="ft-grid">
+    <div class="ft-brand">
+      <a href="#" class="nav-logo" style="font-size:18px" onclick="scrollTop()"><div class="nav-logo-mark" style="width:28px;height:28px;font-size:13px">🩺</div>Medi<span>Connect</span></a>
+      <p class="ft-tagline">India's most trusted telemedicine platform — connecting patients with verified doctors, 24/7.</p>
+      <div class="ft-badges"><span class="ftb ftb-t">NMC Verified</span><span class="ftb ftb-g">ISO 27001</span><span class="ftb ftb-t">DPDPA 2023</span><span class="ftb ftb-g">MoHFW Approved</span></div>
+    </div>
+    <div><div class="ft-col-title">Patients</div><div class="ft-links"><a href="#doctors">Find a Doctor</a><a href="#specialties">Browse Specialties</a><a href="#medicines">Buy Medicines</a><a href="#nearby">Nearby Pharmacies</a><a href="#" onclick="openDonationPage()">Donate & Save Lives</a></div></div>
+    <div><div class="ft-col-title">Doctors</div><div class="ft-links"><a href="#register">Join MediConnect</a><a href="#" onclick="openModal('doclogin')">Doctor Login</a><a href="#">Verification Status</a><a href="#">Earnings & Payouts</a><a href="#">Download App</a></div></div>
+    <div><div class="ft-col-title">Company</div><div class="ft-links"><a href="#">About Us</a><a href="#">Blog</a><a href="#">Careers</a><a href="#">Press Kit</a><a href="#">Contact</a><a href="#">Grievance Officer</a></div></div>
+  </div>
+  <div class="ft-bottom">
+    <div class="ft-copy">© 2026 MediConnect Technologies Pvt. Ltd. All rights reserved.</div>
+    <div style="font-size:12px;color:var(--muted)">🇮🇳 Made with pride in India</div>
+    <div class="ft-legal"><a href="#">Privacy</a><a href="#">Terms</a><a href="#">Telemedicine Policy</a><a href="#">Cookies</a></div>
+  </div>
+</div>
+</footer>
+
+<!-- DONATION PAGE (slide-up overlay) -->
+<div id="donationPage">
+  <div class="dp-nav">
+    <div class="dp-back" onclick="closeDonationPage()">← Back to MediConnect</div>
+    <div class="dp-title">❤️ Save a Life</div>
+    <button class="btn btn-gold btn-sm" onclick="document.getElementById('createCampaignSection').scrollIntoView({behavior:'smooth'})">+ Create Campaign</button>
+  </div>
+  <div class="dp-inner">
+    <div class="dp-hero">
+      <div class="dp-hero-icon">❤️</div>
+      <div class="dp-hero-title">Every Rupee <em style="font-style:italic;color:var(--gold)">Saves a Life</em></div>
+      <p class="dp-hero-sub">Browse patient campaigns below or start your own. 100% of donations go directly to treatment — zero platform fees.</p>
+    </div>
+    <div style="display:flex;gap:10px;margin-bottom:28px;flex-wrap:wrap">
+      <div style="flex:1;min-width:180px;display:flex;align-items:center;gap:8px;background:var(--bg2);border:0.5px solid var(--border2);border-radius:var(--radius);padding:0 14px;height:44px">
+        <span style="color:var(--muted)">🔍</span><input style="flex:1;background:none;border:none;outline:none;color:var(--white);font-family:var(--ff-b);font-size:13.5px" placeholder="Search by disease, name…">
+      </div>
+      <button class="filter-pill fp-active">All</button>
+      <button class="filter-pill">Urgent</button>
+      <button class="filter-pill">Cancer</button>
+      <button class="filter-pill">Children</button>
+      <button class="filter-pill">Near Me</button>
+    </div>
+    <div class="dp-two-col">
+      <div>
+        <div style="font-size:13px;font-weight:700;color:var(--muted);letter-spacing:0.06em;text-transform:uppercase;margin-bottom:16px">Active Campaigns (2,847)</div>
+        <div id="dpCampaigns"></div>
+        <button class="btn btn-o" style="width:100%;justify-content:center;margin-top:12px">Load More Campaigns</button>
+      </div>
+      <div id="createCampaignSection">
+        <div class="create-form">
+          <div class="cf-title">Start a Campaign</div>
+          <div class="cf-sub">Help someone fight for their life. Create a verified campaign in minutes.</div>
+          <div class="fg"><label class="fl">Patient Full Name</label><input class="fi" placeholder="Full name of the patient"></div>
+          <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px">
+            <div class="fg"><label class="fl">Age</label><input class="fi" type="number" placeholder="e.g. 34"></div>
+            <div class="fg"><label class="fl">Gender</label><select class="fi"><option>Select</option><option>Male</option><option>Female</option><option>Other</option></select></div>
+          </div>
+          <div class="fg"><label class="fl">Disease / Condition</label><input class="fi" placeholder="e.g. Acute Leukaemia (Blood Cancer)"></div>
+          <div class="fg"><label class="fl">Hospital / Location</label><input class="fi" placeholder="e.g. AIIMS Delhi, New Delhi"></div>
+          <div class="fg"><label class="fl">Amount Needed (₹)</label><input class="fi" type="number" placeholder="e.g. 500000"></div>
+          <div class="fg"><label class="fl">Patient's Story</label><textarea class="fi" rows="4" placeholder="Describe the patient's situation, diagnosis, why funds are needed, and how it will be used…"></textarea></div>
+          <div class="fg"><label class="fl">Patient Photo</label>
+            <div class="photo-upload"><div class="pu-icon">📸</div><div class="pu-text"><strong>Upload patient photo</strong><br>JPG, PNG — Max 5MB</div></div>
+          </div>
+          <div class="fg"><label class="fl">Medical Documents</label>
+            <div class="photo-upload"><div class="pu-icon">📋</div><div class="pu-text"><strong>Hospital reports, prescriptions</strong><br>PDF, JPG — Max 20MB total</div></div>
+          </div>
+          <div class="fg"><label class="fl">Your Relationship to Patient</label><input class="fi" placeholder="e.g. Father, Self, Friend"></div>
+          <div class="fg"><label class="fl">Your Phone (for verification)</label><input class="fi" type="tel" placeholder="+91 98765 43210"></div>
+          <button class="btn btn-gold" style="width:100%;justify-content:center;font-size:14px" onclick="openModal('campaignok')">Submit Campaign →</button>
+          <p style="font-size:11px;color:var(--muted);text-align:center;margin-top:9px">Campaign reviewed within 24hrs. You'll be contacted for document verification.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- MODAL -->
+<div id="modalOv" onclick="closeModalOuter(event)">
+  <div class="modal" id="modalBox" style="max-width:480px">
+    <button class="modal-x" onclick="closeModal()">✕</button>
+    <div id="modalBody"></div>
+  </div>
+</div>
+
+<script>
+/* ── DATA ── */
+const DOCS=[
+  {id:'d1',name:'Dr. Deepa Sharma',spec:'Cardiologist',hosp:'AIIMS New Delhi',exp:14,consults:4820,rating:4.9,sat:98,fee:500,available:true,city:'New Delhi',langs:['Hindi','English'],
+   avC:'#0A1E3A',avA:'#00C9A7',avS:'#E8C060',tags:['Heart Failure','Hypertension','Preventive Cardiology'],tC:['p-teal','p-teal','p-gold'],
+   about:'Dr. Deepa Sharma is a Senior Cardiologist at AIIMS New Delhi with 14 years of experience in interventional cardiology. She is a Fellow of the Cardiological Society of India (FCSI) and has published 40+ research papers.\n\nShe specialises in managing complex cardiac cases, heart failure, coronary artery disease, and hypertension. Her patient-first approach has earned her consistent top ratings.',
+   skills:['Echocardiography','Cardiac Catheterisation','Holter Monitoring','Stress Testing','Heart Failure Management','ECG Interpretation'],
+   degrees:[{t:'MBBS',i:'AIIMS New Delhi',y:'2004–2010'},{t:'MD – Internal Medicine',i:'AIIMS New Delhi',y:'2010–2013'},{t:'DM – Cardiology',i:'PGIMER Chandigarh',y:'2013–2016'},{t:'Fellowship – Interventional Cardiology',i:'Cleveland Clinic, USA',y:'2016–2017'}],
+   reviews:[{a:'Arun M.',d:'March 2026',s:5,t:'Dr. Sharma spent 30 minutes explaining my ECG and prescribed medication that worked immediately. Highly recommend.'},{a:'Sunita R.',d:'Feb 2026',s:5,t:'Very thorough. She reviewed all my reports and gave a crystal-clear treatment plan. Best online consultation I\'ve had.'},{a:'Vikram K.',d:'Jan 2026',s:4,t:'Excellent doctor. Only a 5-minute wait. The consultation itself was outstanding.'}],
+   videos:[{t:'Understanding Heart Failure',d:'8:42'},{t:'How to Read Your Cholesterol Report',d:'6:15'}]},
+  {id:'d2',name:'Dr. Rajesh Kumar',spec:'Neurologist',hosp:'KEM Hospital Mumbai',exp:18,consults:6140,rating:4.8,sat:97,fee:700,available:true,city:'Mumbai',langs:['Hindi','Marathi','English'],
+   avC:'#1A0E00',avA:'#F5A623',avS:'#C87A30',tags:['Epilepsy','Migraine','Parkinson\'s'],tC:['p-teal','p-teal','p-gold'],
+   about:'Dr. Rajesh Kumar is a renowned Neurologist at KEM Hospital Mumbai with 18 years of experience. He trained at NIMHANS Bengaluru and completed a fellowship at Johns Hopkins Hospital, USA.\n\nSpecialises in epilepsy, movement disorders, and headache medicine. Recognised by the Neurological Society of India for contributions to epilepsy research.',
+   skills:['EEG Interpretation','Botox for Migraine','Deep Brain Stimulation','Nerve Conduction Studies','Stroke Management','Epilepsy Surgery Evaluation'],
+   degrees:[{t:'MBBS',i:'Grant Medical College Mumbai',y:'2000–2006'},{t:'MD – Medicine',i:'KEM Hospital Mumbai',y:'2006–2009'},{t:'DM – Neurology',i:'NIMHANS Bengaluru',y:'2009–2012'},{t:'Fellowship – Movement Disorders',i:'Johns Hopkins Hospital, USA',y:'2012–2013'}],
+   reviews:[{a:'Pooja S.',d:'April 2026',s:5,t:'Dr. Kumar diagnosed my epilepsy after two other doctors missed it. His EEG explanation was incredibly clear. Life-changing.'},{a:'Manoj P.',d:'March 2026',s:5,t:'My father has Parkinson\'s and Dr. Kumar\'s guidance has significantly improved his quality of life. Very empathetic.'}],
+   videos:[{t:'Migraine vs Headache — Key Differences',d:'11:23'},{t:'Living with Epilepsy — Patient Guide',d:'14:05'}]},
+  {id:'d3',name:'Dr. Priya Menon',spec:'Paediatrician',hosp:'CMC Vellore',exp:11,consults:3980,rating:4.9,sat:99,fee:400,available:false,city:'Vellore',langs:['Tamil','English','Malayalam'],
+   avC:'#001520',avA:'#4A9EFF',avS:'#90B8F0',tags:['Child Health','Vaccines','Neonatology'],tC:['p-teal','p-teal','p-blue'],
+   about:'Dr. Priya Menon is a Paediatrician at CMC Vellore with 11 years of experience in general paediatrics and neonatology. Known for her gentle approach, she specialises in newborn care and developmental assessment.',
+   skills:['Neonatal Care','Developmental Assessment','Paediatric Nutrition','Growth Monitoring','Vaccination Counselling','Paediatric Asthma Management'],
+   degrees:[{t:'MBBS',i:'CMC Vellore',y:'2007–2013'},{t:'MD – Paediatrics',i:'CMC Vellore',y:'2013–2016'},{t:'Fellowship – Neonatology',i:'AIIMS New Delhi',y:'2016–2017'}],
+   reviews:[{a:'Deepa N.',d:'April 2026',s:5,t:'Dr. Priya is wonderful with children. My 3-year-old actually enjoys talking to her! Explains everything clearly.'},{a:'Rajan K.',d:'March 2026',s:5,t:'She spotted a nutritional deficiency two other doctors missed. Thorough and caring.'}],
+   videos:[{t:'Your Baby\'s First Year — Milestones',d:'16:30'},{t:'Fever in Children — When to Worry',d:'9:48'}]},
+  {id:'d4',name:'Dr. Anita Nair',spec:'Dermatologist',hosp:'Manipal Bengaluru',exp:9,consults:2760,rating:4.8,sat:96,fee:450,available:true,city:'Bengaluru',langs:['Kannada','Hindi','English'],
+   avC:'#200018',avA:'#FF7BAC',avS:'#F8D0A0',tags:['Acne','Psoriasis','Hair Loss'],tC:['p-teal','p-teal','p-gold'],
+   about:'Dr. Anita Nair is a Dermatologist and Cosmetologist at Manipal Hospital Bengaluru with 9 years of experience. Specialises in acne management, psoriasis, vitiligo, and cosmetic dermatology with training in laser dermatology.',
+   skills:['Acne Management','Psoriasis Treatment','Vitiligo Therapy','Chemical Peels','Hair Loss Treatment','Dermoscopy','Cosmetic Dermatology'],
+   degrees:[{t:'MBBS',i:'Kasturba Medical College Manipal',y:'2009–2015'},{t:'MD – Dermatology, Venereology & Leprosy',i:'Manipal Academy',y:'2015–2018'},{t:'Fellowship – Cosmetic Dermatology',i:'IADVL Academy',y:'2019'}],
+   reviews:[{a:'Sneha M.',d:'April 2026',s:5,t:'Dr. Anita solved my 5-year acne problem! Holistic approach, treatment worked in 6 weeks. Truly grateful.'},{a:'Kiran L.',d:'Feb 2026',s:4,t:'Very knowledgeable. Diagnosed correctly in minutes. Effective prescription. Will consult again.'}],
+   videos:[{t:'Acne Skincare Routine for Indian Skin',d:'12:15'},{t:'Understanding Psoriasis — Triggers',d:'10:32'}]},
+];
+
+const SPECS=[
+  {id:'s1',icon:'❤️',name:'Cardiology',cnt:'842 Doctors',tag:'emergency',
+   desc:'Cardiology is the branch of medicine dealing with disorders of the heart and cardiovascular system. Cardiologists diagnose and treat heart attacks, arrhythmias, heart failure, and coronary artery disease.',
+   treats:['Heart Attack','Coronary Artery Disease','Heart Failure','Arrhythmias','Hypertension','Valvular Disease','Cardiomyopathy','Pericarditis','Atherosclerosis','Congenital Heart Defects'],
+   when:'See a cardiologist for chest pain, shortness of breath, palpitations, fainting, leg swelling, or a family history of heart disease.'},
+  {id:'s2',icon:'🧠',name:'Neurology',cnt:'614 Doctors',tag:'popular',
+   desc:'Neurology specialises in disorders of the brain, spinal cord, and peripheral nerves. Neurologists treat conditions affecting how you think, feel, and move.',
+   treats:['Epilepsy','Migraine','Stroke','Parkinson\'s Disease','Multiple Sclerosis','Alzheimer\'s','Neuropathy','Brain Tumours','Meningitis','Guillain-Barré Syndrome'],
+   when:'Consult a neurologist for persistent headaches, seizures, sudden weakness, speech difficulties, memory problems, tremors, or if you\'ve had a stroke.'},
+  {id:'s3',icon:'👶',name:'Paediatrics',cnt:'980 Doctors',tag:'popular',
+   desc:'Paediatrics covers the health and medical care of infants, children, and adolescents up to age 18. Paediatricians monitor growth, manage childhood illness, and administer vaccinations.',
+   treats:['Childhood Fever','Asthma in Children','Growth Disorders','Childhood Obesity','ADHD','Newborn Care','Vaccination','Allergies','Juvenile Diabetes','Ear Infections'],
+   when:'See a paediatrician for regular well-child visits, vaccinations, developmental concerns, persistent fever, respiratory problems, or behavioural concerns in children.'},
+  {id:'s4',icon:'🌿',name:'Dermatology',cnt:'560 Doctors',tag:'popular',
+   desc:'Dermatology is the science of skin, hair, and nails. Dermatologists diagnose skin diseases, treat cosmetic concerns, and screen for skin cancer.',
+   treats:['Acne','Psoriasis','Eczema','Fungal Infections','Vitiligo','Hair Loss','Skin Cancer Screening','Rosacea','Warts & Moles','Hyperpigmentation'],
+   when:'See a dermatologist for persistent acne, unusual moles, chronic rashes, excessive hair loss, nail disorders, or any skin change that worries you.'},
+  {id:'s5',icon:'🦴',name:'Orthopaedics',cnt:'722 Doctors',tag:'popular',
+   desc:'Orthopaedics deals with the musculoskeletal system — bones, joints, muscles, tendons, and ligaments. Treat injuries and conditions affecting movement.',
+   treats:['Fractures','Arthritis','Back Pain','ACL Tears','Hip/Knee Replacement','Scoliosis','Sports Injuries','Carpal Tunnel','Osteoporosis','Tendinitis'],
+   when:'Consult an orthopaedician for joint pain, sports injuries, difficulty moving a limb, back pain, bone fractures, or if you need joint replacement evaluation.'},
+  {id:'s6',icon:'👁️',name:'Ophthalmology',cnt:'490 Doctors',tag:'',
+   desc:'Ophthalmology specialises in eye diseases and vision disorders. Ophthalmologists provide full eye care from vision correction to complex surgery.',
+   treats:['Cataract','Glaucoma','Diabetic Retinopathy','Macular Degeneration','Myopia/Hyperopia','Dry Eye Syndrome','Conjunctivitis','Retinal Detachment','Squint','Uveitis'],
+   when:'See an ophthalmologist for blurry vision, sudden vision loss, eye pain, flashes of light, floaters, or for routine eye checkups.'},
+  {id:'s7',icon:'🫁',name:'Pulmonology',cnt:'380 Doctors',tag:'emergency',
+   desc:'Pulmonology focuses on lungs and respiratory diseases. Pulmonologists treat breathing disorders and conditions affecting oxygen exchange.',
+   treats:['Asthma','COPD','Pneumonia','Lung Cancer','Pulmonary Fibrosis','Tuberculosis','Sleep Apnoea','Bronchiectasis','Pleural Effusion','Sarcoidosis'],
+   when:'See a pulmonologist for persistent cough (>3 weeks), shortness of breath, wheezing, recurring chest infections, coughing blood, or suspected sleep apnoea.'},
+  {id:'s8',icon:'🧬',name:'Endocrinology',cnt:'420 Doctors',tag:'',
+   desc:'Endocrinology deals with hormones and the glands that produce them. Endocrinologists treat hormonal imbalances affecting metabolism, growth, and reproduction.',
+   treats:['Diabetes (Type 1 & 2)','Thyroid Disorders','PCOS','Adrenal Disorders','Osteoporosis','Growth Hormone Deficiency','Pituitary Tumours','Infertility (Hormonal)','Metabolic Syndrome','Parathyroid Disorders'],
+   when:'See an endocrinologist for diabetes management, unexplained weight changes, fatigue, mood swings, irregular periods, infertility, or thyroid nodules.'},
+  {id:'s9',icon:'🫀',name:'General Medicine',cnt:'2,100 Doctors',tag:'popular',
+   desc:'General medicine (internal medicine) is primary care for adults. General physicians diagnose and manage a wide range of acute and chronic conditions and refer to specialists.',
+   treats:['Fever & Infections','Hypertension','Diabetes Care','Anaemia','Typhoid & Dengue','Respiratory Infections','UTIs','Chronic Disease Management','Health Checkups','Pre-op Assessment'],
+   when:'See a general physician for any new symptom, routine checkups, managing chronic conditions, or when you\'re unsure which specialist you need.'},
+  {id:'s10',icon:'🧘',name:'Psychiatry',cnt:'540 Doctors',tag:'',
+   desc:'Psychiatry is the medical specialty for diagnosing, treating, and preventing mental, emotional, and behavioural disorders. Psychiatrists can prescribe medication.',
+   treats:['Depression','Anxiety Disorders','Bipolar Disorder','Schizophrenia','OCD','PTSD','Panic Disorder','Eating Disorders','Substance Use','ADHD'],
+   when:'See a psychiatrist for persistent sadness, severe anxiety, suicidal thoughts, extreme mood swings, hearing voices, or if mental health significantly affects daily life.'},
+  {id:'s11',icon:'🦷',name:'Dentistry',cnt:'1,240 Doctors',tag:'popular',
+   desc:'Dentistry focuses on teeth, gums, mouth, and jaw health. Dentists provide preventive care, treat tooth decay, and perform restorative and cosmetic procedures.',
+   treats:['Tooth Decay & Cavities','Gum Disease','Tooth Extraction','Root Canal','Dental Implants','Orthodontics','Teeth Whitening','Jaw Pain (TMJ)','Oral Cancer Screening','Paediatric Dentistry'],
+   when:'Visit a dentist every 6 months for checkups, or immediately for tooth pain, bleeding gums, swelling, broken teeth, or difficulty chewing.'},
+  {id:'s12',icon:'🔬',name:'Oncology',cnt:'310 Doctors',tag:'',
+   desc:'Oncology is the study and treatment of cancer. Oncologists diagnose, stage, and treat cancer using chemotherapy, radiation, immunotherapy, and targeted therapy.',
+   treats:['Breast Cancer','Lung Cancer','Colorectal Cancer','Prostate Cancer','Blood Cancers','Cervical Cancer','Stomach Cancer','Head & Neck Cancer','Liver Cancer','Skin Cancer'],
+   when:'See an oncologist for unexplained lumps, unexplained weight loss, fatigue, unusual bleeding, abnormal biopsy, or if you have been diagnosed with cancer.'},
+];
+
+const NEARBY=[
+  {type:'pharmacy',name:'Apollo Pharmacy',addr:'Connaught Place, New Delhi',dist:'0.4 km',open:true,tags:['24/7','Delivery Available']},
+  {type:'ambulance',name:'108 Ambulance Service',addr:'Rajiv Chowk Station (2 units)',dist:'0.6 km',open:true,tags:['Paramedic','ICU-equipped']},
+  {type:'pharmacy',name:'MedPlus',addr:'Janpath, New Delhi',dist:'0.8 km',open:true,tags:['Prescription Accepted','Generics']},
+  {type:'hospital',name:'Ram Manohar Lohia Hospital',addr:'Baba Kharak Singh Marg',dist:'1.1 km',open:true,tags:['Govt Hospital','Emergency Ward']},
+  {type:'ambulance',name:'Private Ambulance — StanPlus',addr:'Tracking: 3 units nearby',dist:'1.4 km',open:true,tags:['Advanced Life Support','GPS Tracked']},
+  {type:'pharmacy',name:'Netmeds Pharmacy',addr:'Barakhamba Road, New Delhi',dist:'1.6 km',open:false,tags:['Opens 9 AM','Online Delivery']},
+];
+
+const CAMPAIGNS=[
+  {icon:'👦',name:'Arjun Sharma',disease:'Acute Lymphoblastic Leukaemia',age:8,city:'Lucknow',raised:240000,goal:500000,donors:1240,desc:'Arjun is 8 years old and fighting blood cancer at SGPGI Lucknow. Needs chemotherapy for 12 months.',urgent:true},
+  {icon:'👩',name:'Meera Devi',disease:'Stage 4 Breast Cancer',age:42,city:'Patna',raised:185000,goal:350000,donors:820,desc:'Meera, a schoolteacher and mother of three, needs immunotherapy and surgery at AIIMS Delhi.',urgent:true},
+  {icon:'👴',name:'Ramesh Gupta',disease:'Coronary Artery Disease',age:67,city:'Jaipur',raised:95000,goal:200000,donors:440,desc:'Ramesh needs triple bypass surgery. A retired farmer with no insurance coverage.',urgent:false},
+  {icon:'👧',name:'Priya Kumari',disease:'Congenital Heart Defect',age:4,city:'Varanasi',raised:310000,goal:400000,donors:2100,desc:'Baby Priya was born with a ventricular septal defect. Needs corrective open-heart surgery.',urgent:true},
+];
+
+const DONORS=[
+  {logo:'🏥',name:'Tata Trusts',amount:'₹2.4 Cr donated'},
+  {logo:'💊',name:'Sun Pharma',amount:'₹1.8 Cr donated'},
+  {logo:'🏦',name:'HDFC Bank',amount:'₹1.2 Cr donated'},
+  {logo:'🏗️',name:'Reliance Foundation',amount:'₹3.1 Cr donated'},
+  {logo:'🌿',name:'Cipla Foundation',amount:'₹90 L donated'},
+  {logo:'🏢',name:'Infosys Foundation',amount:'₹75 L donated'},
+  {logo:'💙',name:'Bill & Melinda Gates Foundation',amount:'$500K donated'},
+];
+
+const QUICK=[
+  {icon:'🎥',title:'Video Consult',desc:'Instant HD consultation with verified doctors',color:'var(--teal)',link:'#doctors'},
+  {icon:'📅',title:'Book Appointment',desc:'Schedule in-person or video visits',color:'var(--blue)',link:'#doctors'},
+  {icon:'🚑',title:'Emergency',desc:'Doctor or ambulance in under 60s',color:'var(--red)',link:'#emergency'},
+  {icon:'💊',title:'Buy Medicines',desc:'50,000+ medicines with fast delivery',color:'var(--gold)',link:'#medicines'},
+  {icon:'📍',title:'Nearby Care',desc:'Find pharmacies & ambulances near you',color:'var(--blue)',link:'#nearby'},
+  {icon:'❤️',title:'Save a Life',desc:'Donate to help patients in need',color:'var(--red)',link:'#donation-bottom'},
+];
+
+/* ── SVG AVATAR ── */
+function mkAva(d){return`<svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg"><rect width="100" height="100" fill="${d.avC}"/><circle cx="50" cy="38" r="22" fill="${d.avA}" opacity=".75"/><ellipse cx="50" cy="38" rx="11" ry="13" fill="${d.avS}"/><ellipse cx="50" cy="90" rx="30" ry="28" fill="${d.avA}" opacity=".65"/></svg>`}
+
+/* ── RENDER ── */
+function renderAll(){
+  // Quick cards
+  document.getElementById('quickGrid').innerHTML=QUICK.map((q,i)=>`
+    <div class="quick-card reveal reveal-delay-${i%5+1}" style="--accent-color:${q.color}" onclick="location.href='${q.link}'">
+      <div class="qc-icon">${q.icon}</div>
+      <div class="qc-title">${q.title}</div>
+      <div class="qc-desc">${q.desc}</div>
+    </div>`).join('');
+  // Docs
+  renderDocGrid(DOCS);
+  // Specs
+  renderSpecGrid(SPECS);
+  // Nearby
+  renderNearby(NEARBY);
+  // Campaigns mini
+  renderCampaignsMini();
+  // Full campaigns in donation page
+  renderDpCampaigns();
+  // Donors
+  renderDonors();
+  // Hero doc rows
+  renderHeroRows();
+}
+
+function renderDocGrid(docs){
+  document.getElementById('docGrid').innerHTML=docs.map((d,i)=>`
+    <div class="doc-card reveal reveal-delay-${i%3+1}">
+      <div class="doc-card-verified">✓ Verified</div>
+      <div class="dc-top">
+        <div class="dc-ava" onclick="openDocModal('${d.id}')" title="View profile">${mkAva(d)}</div>
+        <div class="dc-info">
+          ${d.available?`<div class="avail-tag"><div class="avail-dot"></div>Available Now</div>`:`<div style="font-size:10px;color:var(--gold);margin-bottom:3px">~10 min wait</div>`}
+          <div class="dc-name" onclick="openDocModal('${d.id}')">${d.name}</div>
+          <div class="dc-spec">${d.spec}</div>
+          <div class="dc-hosp">${d.hosp} · ${d.exp} yrs</div>
+        </div>
+      </div>
+      <div class="dc-meta">
+        <div><div class="dc-mv">${d.consults.toLocaleString()}</div><div class="dc-ml">Consultations</div></div>
+        <div><div class="dc-mv"><span class="stars">★</span> ${d.rating}</div><div class="dc-ml">Rating</div></div>
+        <div><div class="dc-mv">${d.sat}%</div><div class="dc-ml">Satisfaction</div></div>
+      </div>
+      <div class="dc-pills">${d.tags.map((t,j)=>`<span class="pill ${d.tC[j]}">${t}</span>`).join('')}<span class="pill p-blue">${d.langs[0]}</span></div>
+      <div class="dc-foot">
+        <div><div class="dc-fee-n">₹${d.fee}</div><div class="dc-fee-l">Per session</div></div>
+        <div class="dc-actions">
+          <button class="btn btn-o btn-sm" onclick="openDocModal('${d.id}')">Profile</button>
+          <button class="btn btn-sm" style="background:var(--teal);color:#04111F;border:none" onclick="openVideoCall('${d.id}')">🎥 Consult</button>
+        </div>
+      </div>
+    </div>`).join('');
+}
+
+function renderHeroRows(){
+  document.getElementById('heroDocRows').innerHTML=DOCS.slice(0,4).map(d=>`
+    <div class="doc-row" onclick="openDocModal('${d.id}')">
+      <div class="drow-ava">${mkAva(d)}</div>
+      <div class="drow-info"><div class="drow-name">${d.name}</div><div class="drow-spec">${d.spec} · ${d.city}</div></div>
+      <div class="drow-badge ${d.available?'db-avail':'db-wait'}">${d.available?'Available':'~10 min'}</div>
+    </div>`).join('');
+}
+
+let activeSpec=null;
+function renderSpecGrid(specs){
+  const g=document.getElementById('specGrid');
+  g.innerHTML=specs.map((s,i)=>`
+    <div class="spec-card reveal reveal-delay-${i%6+1}" id="sc-${s.id}" onclick="toggleSpec('${s.id}',this)">
+      <div class="sc-icon">${s.icon}</div>
+      <div class="sc-name">${s.name}</div>
+      <div class="sc-count">${s.cnt}</div>
+      <div class="sc-arrow">▾</div>
+    </div>`).join('');
+}
+
+function toggleSpec(id, el){
+  const container=document.getElementById('specExpandContainer');
+  if(activeSpec===id){
+    container.innerHTML='';
+    el.classList.remove('sc-open');
+    activeSpec=null;
+    return;
+  }
+  document.querySelectorAll('.spec-card').forEach(c=>c.classList.remove('sc-open'));
+  activeSpec=id;
+  el.classList.add('sc-open');
+  const s=SPECS.find(x=>x.id===id);
+  const relDocs=DOCS.filter(d=>d.spec.toLowerCase().includes(s.name.slice(0,4).toLowerCase())||s.name.includes('General'));
+  container.innerHTML=`
+    <div class="spec-expand open" id="specEx">
+      <div class="se-header">
+        <div class="se-icon-big">${s.icon}</div>
+        <div>
+          <div class="se-title">${s.name}</div>
+          <div class="se-sub">${s.cnt} available on MediConnect</div>
+          <div class="se-desc">${s.desc}</div>
+        </div>
+      </div>
+      <div class="se-divider"></div>
+      <div class="se-row">
+        <div>
+          <div class="se-section-label">Conditions Treated</div>
+          <div class="se-tags">${s.treats.map(t=>`<span class="se-tag">${t}</span>`).join('')}</div>
+        </div>
+        <div>
+          <div class="se-section-label">When to Consult</div>
+          <div class="se-when">${s.when}</div>
+        </div>
+      </div>
+      ${relDocs.length?`<div class="se-divider"></div><div class="se-section-label">Available Doctors</div><div style="display:flex;gap:10px;flex-wrap:wrap">${relDocs.map(d=>`<div style="display:flex;gap:9px;align-items:center;background:var(--card2);border:0.5px solid var(--border2);border-radius:var(--radius);padding:10px 13px;cursor:pointer;transition:all 0.2s;min-width:180px" onclick="openDocModal('${d.id}')" onmouseover="this.style.borderColor='rgba(0,201,167,0.4)'" onmouseout="this.style.borderColor='var(--border2)'"><div style="width:32px;height:32px;border-radius:8px;overflow:hidden;flex-shrink:0">${mkAva(d)}</div><div><div style="font-size:13px;font-weight:700">${d.name}</div><div style="font-size:11px;color:var(--teal)">₹${d.fee}/consult</div></div></div>`).join('')}</div>`:''}
+      <div class="se-actions">
+        <button class="btn btn-p btn-sm" onclick="document.getElementById('doctors').scrollIntoView({behavior:'smooth'});toggleSpec('${id}',document.getElementById('sc-${id}'))">Find ${s.name} Doctors →</button>
+        <button class="btn btn-o btn-sm" onclick="toggleSpec('${id}',document.getElementById('sc-${id}'))">Close ✕</button>
+      </div>
+    </div>`;
+  container.scrollIntoView({behavior:'smooth',block:'nearest'});
+}
+
+function filterSpecs(q){
+  document.querySelectorAll('.spec-card').forEach((c,i)=>{
+    c.style.display=SPECS[i]&&SPECS[i].name.toLowerCase().includes(q.toLowerCase())?'':'none';
+  });
+}
+function setSpecFilter(type,btn){
+  document.querySelectorAll('#specialties .filter-pill').forEach(b=>b.classList.remove('fp-active'));
+  btn.classList.add('fp-active');
+  document.querySelectorAll('.spec-card').forEach((c,i)=>{
+    const s=SPECS[i];
+    if(!s){c.style.display='none';return}
+    if(type==='all')c.style.display='';
+    else if(type==='popular')c.style.display=s.tag==='popular'?'':'none';
+    else if(type==='emergency')c.style.display=s.tag==='emergency'?'':'none';
+  });
+}
+
+function renderNearby(list){
+  document.getElementById('nearbyList').innerHTML=list.map(n=>{
+    const colors={pharmacy:'var(--teal)',ambulance:'var(--red)',hospital:'var(--gold)'};
+    const icons={pharmacy:'💊',ambulance:'🚑',hospital:'🏥'};
+    return`<div class="nearby-item" style="--accent-color:${colors[n.type]}">
+      <div class="ni-icon-box" style="background:${colors[n.type]}22">${icons[n.type]}</div>
+      <div style="flex:1;min-width:0">
+        <div class="ni-name">${n.name}</div>
+        <div class="ni-addr">${n.addr}</div>
+        <div class="ni-tags">
+          <span class="ni-tag ${n.open?'nt-open':'nt-dist'}">${n.open?'Open Now':'Closed'}</span>
+          <span class="ni-tag nt-dist">${n.dist}</span>
+          ${n.tags.map(t=>`<span class="ni-tag" style="background:var(--card2);color:var(--muted)">${t}</span>`).join('')}
+        </div>
+      </div>
+      <button class="btn btn-sm" style="background:${colors[n.type]}22;color:${colors[n.type]};border:0.5px solid ${colors[n.type]}44;font-size:11px" onclick="openModal('navigate')">Navigate →</button>
+    </div>`;
+  }).join('');
+}
+
+function setNearby(type,btn){
+  document.querySelectorAll('#nearby .filter-pill').forEach(b=>b.classList.remove('fp-active'));
+  btn.classList.add('fp-active');
+  const filtered=type==='all'?NEARBY:NEARBY.filter(n=>n.type===type||(type==='pharmacy'&&n.type==='pharmacy')||(type==='ambulance'&&n.type==='ambulance')||(type==='hospital'&&n.type==='hospital'));
+  renderNearby(filtered);
+}
+
+function renderCampaignsMini(){
+  document.getElementById('campaignsMini').innerHTML=CAMPAIGNS.slice(0,2).map(c=>`
+    <div class="campaign-card" onclick="openDonationPage()">
+      <div class="cc-img">
+        <span>${c.icon}</span>
+        ${c.urgent?'<div class="cc-urgent">URGENT</div>':''}
+      </div>
+      <div class="cc-body">
+        <div class="cc-name">${c.name}, ${c.age}</div>
+        <div class="cc-disease">${c.disease}</div>
+        <div class="cc-desc">${c.desc}</div>
+        <div class="progress-bar-wrap">
+          <div class="pb-labels"><span class="pb-raised">₹${(c.raised/100000).toFixed(1)}L raised</span><span class="pb-goal">₹${(c.goal/100000).toFixed(1)}L goal</span></div>
+          <div class="progress-bar"><div class="pb-fill" style="width:${Math.round(c.raised/c.goal*100)}%"></div></div>
+        </div>
+        <div class="cc-foot"><span class="cc-donors">${c.donors.toLocaleString()} donors</span><button class="btn btn-gold btn-sm" onclick="event.stopPropagation();openDonationPage()">Donate</button></div>
+      </div>
+    </div>`).join('');
+}
+
+function renderDpCampaigns(){
+  document.getElementById('dpCampaigns').innerHTML=CAMPAIGNS.map(c=>`
+    <div class="dp-campaign">
+      <div class="dp-cava">${c.icon}</div>
+      <div style="flex:1;min-width:0">
+        <div class="dp-cname">${c.name}, ${c.age} · ${c.city} ${c.urgent?'<span style="background:var(--red);color:#fff;border-radius:100px;padding:2px 8px;font-size:9.5px;font-weight:700;margin-left:6px">URGENT</span>':''}</div>
+        <div class="dp-cdisease">${c.disease}</div>
+        <div class="dp-cdesc">${c.desc}</div>
+        <div class="dp-progress">
+          <div class="pb-labels"><span class="pb-raised">₹${(c.raised/100000).toFixed(1)}L raised</span><span class="pb-goal">Goal: ₹${(c.goal/100000).toFixed(1)}L</span></div>
+          <div class="progress-bar"><div class="pb-fill" style="width:${Math.round(c.raised/c.goal*100)}%"></div></div>
+        </div>
+        <div class="dp-cfoot"><span class="dp-raised">${c.donors.toLocaleString()} donors</span><button class="btn btn-gold btn-sm" onclick="event.stopPropagation();openModal('donate-${c.name.split(' ')[0]}')">Donate Now</button></div>
+      </div>
+    </div>`).join('');
+}
+
+function renderDonors(){
+  document.getElementById('donorsRow').innerHTML=DONORS.map(d=>`
+    <div class="donor-company">
+      <div class="donor-logo">${d.logo}</div>
+      <div><div class="donor-name">${d.name}</div><div class="donor-amount">${d.amount}</div></div>
+    </div>`).join('');
+}
+
+/* ── DOC MODAL ── */
+function openDocModal(id){
+  const d=DOCS.find(x=>x.id===id);if(!d)return;
+  setModal(`
+    <div>
+      <div class="dm-top">
+        <div class="dm-ava-lg">${mkAva(d)}</div>
+        <div class="dm-main-info">
+          <div class="dm-name">${d.name}</div>
+          <div class="dm-spec">${d.spec}</div>
+          <div class="dm-hosp">${d.hosp} · ${d.exp} years · ${d.city}</div>
+          <div class="dm-badges">
+            <span class="dm-badge dmb-t">✓ NMC Verified</span>
+            <span class="dm-badge dmb-g">${d.langs.join(' · ')}</span>
+            <span class="dm-badge dmb-b">★ ${d.rating}</span>
+            <span class="dm-badge" style="background:var(--teal2);color:var(--teal);border-color:rgba(0,201,167,.25)">${d.available?'Available Now':'~10 min wait'}</span>
+          </div>
+        </div>
+        <div style="display:flex;flex-direction:column;gap:8px;flex-shrink:0">
+          <button class="btn btn-p btn-sm" onclick="closeModal();openVideoCall('${d.id}')">🎥 Consult Now</button>
+          <button class="btn btn-o btn-sm" onclick="closeModal();document.getElementById('doctors').scrollIntoView({behavior:'smooth'})">📅 Book Appt</button>
+        </div>
+      </div>
+      <div class="dm-stats-row">
+        <div class="dm-sq"><div class="dm-sqv">${d.consults.toLocaleString()}</div><div class="dm-sql">Consultations</div></div>
+        <div class="dm-sq"><div class="dm-sqv"><span class="stars">★</span>${d.rating}</div><div class="dm-sql">Rating</div></div>
+        <div class="dm-sq"><div class="dm-sqv">${d.sat}%</div><div class="dm-sql">Satisfaction</div></div>
+        <div class="dm-sq"><div class="dm-sqv">${d.exp} yrs</div><div class="dm-sql">Experience</div></div>
+        <div class="dm-sq"><div class="dm-sqv" style="color:var(--teal)">₹${d.fee}</div><div class="dm-sql">Per Session</div></div>
+      </div>
+      <div class="dm-tabs">
+        <button class="dm-tab active" onclick="switchDmTab(this,'dm-about-${d.id}')">About</button>
+        <button class="dm-tab" onclick="switchDmTab(this,'dm-deg-${d.id}')">Degrees</button>
+        <button class="dm-tab" onclick="switchDmTab(this,'dm-rev-${d.id}')">Reviews (${d.reviews.length})</button>
+        <button class="dm-tab" onclick="switchDmTab(this,'dm-vid-${d.id}')">Videos</button>
+      </div>
+      <div class="dm-tab-body active" id="dm-about-${d.id}">
+        ${d.about.split('\n\n').map(p=>`<p class="dm-about-p">${p}</p>`).join('')}
+        <div class="dm-section-lbl">Skills & Specialisations</div>
+        <div class="skill-tags">${d.skills.map(s=>`<span class="skill-tag">${s}</span>`).join('')}</div>
+        <div class="dm-section-lbl">Languages</div>
+        <div style="display:flex;gap:8px;flex-wrap:wrap">${d.langs.map(l=>`<span style="background:var(--blue2);color:var(--blue);border:0.5px solid rgba(74,158,255,.2);border-radius:8px;padding:4px 11px;font-size:12px;font-weight:600">${l}</span>`).join('')}</div>
+      </div>
+      <div class="dm-tab-body" id="dm-deg-${d.id}">
+        <div style="background:var(--teal2);border:0.5px solid rgba(0,201,167,.2);border-radius:var(--radius);padding:12px 14px;font-size:12.5px;color:var(--muted);margin-bottom:14px">✓ All degrees verified with the <strong style="color:var(--teal)">National Medical Commission of India</strong> and respective universities.</div>
+        ${d.degrees.map(deg=>`<div class="deg-item"><div class="di-icon">🎓</div><div><div class="di-title">${deg.t}</div><div class="di-inst">${deg.i}</div><div class="di-yr">${deg.y}</div><div class="di-verified">✓ NMC Verified</div></div></div>`).join('')}
+      </div>
+      <div class="dm-tab-body" id="dm-rev-${d.id}">
+        ${d.reviews.map(r=>`<div class="rev-item"><div class="ri-hdr"><span class="ri-author">${r.a}</span><span class="ri-date">${r.d}</span></div><div class="ri-stars">${'★'.repeat(r.s)}${'☆'.repeat(5-r.s)}</div><div class="ri-text">${r.t}</div></div>`).join('')}
+      </div>
+      <div class="dm-tab-body" id="dm-vid-${d.id}">
+        <div style="font-size:12px;color:var(--muted);margin-bottom:14px">Educational videos created by ${d.name}. Click to preview.</div>
+        ${d.videos.map(v=>`<div class="vid-thumb" onclick="closeModal();openVideoCall('${d.id}')"><div class="vt-play">▶</div><div class="vt-lbl">${v.t} · ${v.d}</div></div>`).join('')}
+      </div>
+    </div>`,800);
+}
+function switchDmTab(btn,tabId){
+  const modal=document.getElementById('modalBox');
+  modal.querySelectorAll('.dm-tab').forEach(t=>t.classList.remove('active'));
+  modal.querySelectorAll('.dm-tab-body').forEach(t=>t.classList.remove('active'));
+  btn.classList.add('active');
+  document.getElementById(tabId).classList.add('active');
+}
+
+/* ── VIDEO CALL ── */
+function openVideoCall(id){
+  const d=DOCS.find(x=>x.id===id)||DOCS[0];
+  setModal(`<div style="padding:clamp(16px,3vw,26px)">
+    <div style="border-radius:var(--radius2);overflow:hidden;position:relative;aspect-ratio:16/9;background:linear-gradient(135deg,#0A1828,#071228);display:flex;align-items:center;justify-content:center">
+      <div style="width:55%;height:74%;background:linear-gradient(135deg,#0F2456,#071A3C);border-radius:10px;display:flex;align-items:center;justify-content:center;overflow:hidden"><svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg" style="width:70%;height:70%"><circle cx="50" cy="42" r="22" fill="#1E4080"/><ellipse cx="50" cy="42" rx="12" ry="14" fill="#90B0E0"/><ellipse cx="50" cy="100" rx="35" ry="32" fill="#1E4080"/></svg></div>
+      <div style="position:absolute;bottom:13px;left:13px;width:95px;height:64px;border-radius:9px;border:2px solid var(--teal);overflow:hidden;display:flex;align-items:center;justify-content:center;background:#050F24">${mkAva(d)}</div>
+      <div style="position:absolute;top:12px;left:50%;transform:translateX(-50%);background:rgba(0,0,0,.5);border-radius:100px;padding:5px 14px;font-size:11px;color:var(--muted);display:flex;align-items:center;gap:7px;white-space:nowrap"><div style="width:6px;height:6px;border-radius:50%;background:var(--red);animation:blink 1.5s infinite"></div>00:04:23 · ${d.name}</div>
+      <div style="position:absolute;bottom:13px;left:50%;transform:translateX(-50%);display:flex;gap:9px">
+        <div style="width:38px;height:38px;border-radius:50%;background:rgba(255,255,255,.14);display:flex;align-items:center;justify-content:center;font-size:14px">🎤</div>
+        <div style="width:38px;height:38px;border-radius:50%;background:var(--red);display:flex;align-items:center;justify-content:center;font-size:14px;cursor:pointer" onclick="closeModal()">📵</div>
+        <div style="width:38px;height:38px;border-radius:50%;background:rgba(255,255,255,.14);display:flex;align-items:center;justify-content:center;font-size:14px">📹</div>
+      </div>
+    </div>
+    <div style="display:flex;justify-content:space-between;align-items:center;padding:11px 0 10px"><div style="font-size:14.5px;font-weight:700">Connected with ${d.name}</div><div style="font-size:12.5px;color:var(--muted)">04:23 elapsed</div></div>
+    <div style="display:flex;gap:8px">
+      <button class="btn btn-p btn-sm" style="flex:1">📋 Patient Reports</button>
+      <button class="btn btn-o btn-sm" style="flex:1">💊 Issue Prescription</button>
+    </div>
+    <div style="margin-top:11px;background:var(--card);border:0.5px solid var(--border);border-radius:var(--radius);padding:10px 13px;display:flex;gap:9px;align-items:center">
+      <span style="color:var(--teal)">🔒</span><span style="font-size:12px;color:var(--muted)">End-to-end encrypted · Telemedicine Practice Guidelines 2020 compliant</span>
+    </div>
+  </div>`,600);
+}
+
+/* ── EMERGENCY ── */
+function openEmergency(){
+  setModal(`<div class="sm-pad">
+    <div class="sm-icon">🚨</div>
+    <div class="sm-title" style="color:var(--red)">Emergency Response</div>
+    <div class="sm-desc">Choose the type of emergency assistance you need right now</div>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:13px;margin-bottom:18px">
+      <div style="background:var(--red2);border:1.5px solid rgba(255,64,96,.25);border-radius:var(--radius2);padding:18px;text-align:center;cursor:pointer;transition:all .22s;display:flex;flex-direction:column;align-items:center;gap:8px" onclick="triggerAmbulance()" onmouseover="this.style.borderColor='var(--red)'" onmouseout="this.style.borderColor='rgba(255,64,96,.25)'">
+        <div style="font-size:28px">🚑</div><div style="font-size:13.5px;font-weight:700">Call Ambulance</div><div style="font-size:10.5px;font-weight:700;background:rgba(255,64,96,.2);color:var(--red);border-radius:100px;padding:3px 10px">Dispatched &lt;3 min</div><div style="font-size:11.5px;color:var(--muted)">GPS-tracked with paramedics. 800+ cities.</div>
+      </div>
+      <div style="background:var(--blue2);border:1.5px solid rgba(74,158,255,.25);border-radius:var(--radius2);padding:18px;text-align:center;cursor:pointer;transition:all .22s;display:flex;flex-direction:column;align-items:center;gap:8px" onclick="triggerEmgDoc()" onmouseover="this.style.borderColor='var(--blue)'" onmouseout="this.style.borderColor='rgba(74,158,255,.25)'">
+        <div style="font-size:28px">👨‍⚕️</div><div style="font-size:13.5px;font-weight:700">Emergency Doctor</div><div style="font-size:10.5px;font-weight:700;background:rgba(74,158,255,.2);color:var(--blue);border-radius:100px;padding:3px 10px">Connected &lt;60s</div><div style="font-size:11.5px;color:var(--muted)">Doctor/nurse guides you live via video.</div>
+      </div>
+    </div>
+    <div style="background:rgba(255,64,96,.06);border:0.5px solid rgba(255,64,96,.15);border-radius:var(--radius);padding:12px;font-size:12.5px;color:var(--muted);text-align:center">Also call <strong style="color:var(--red)">112 (National Emergency)</strong> or <strong style="color:var(--red)">108 (Ambulance)</strong></div>
+  </div>`,480);
+}
+function triggerAmbulance(){
+  document.getElementById('modalBody').innerHTML=`<div class="sm-pad"><div class="sm-icon">🚑</div><div class="sm-title" style="color:var(--red)">Ambulance Dispatched!</div><div style="background:var(--red2);border:0.5px solid rgba(255,64,96,.2);border-radius:var(--radius2);padding:18px;text-align:center;margin:14px 0"><div style="font-size:12px;color:var(--muted);margin-bottom:6px">Tracking ID</div><div style="font-family:var(--ff-h);font-size:22px;font-weight:400">#EMG-2026-8821</div><div style="font-size:13px;color:var(--muted);margin-top:6px">ETA: <strong style="color:var(--white)">8–12 minutes</strong> · Paramedic calling you shortly</div></div><div style="font-size:13.5px;color:var(--muted);margin-bottom:16px;text-align:center">Connect to an emergency doctor for guidance while waiting?</div><div class="sm-btns"><button class="btn btn-r btn-full" style="border-radius:var(--radius);animation:none" onclick="triggerEmgDoc()">🎥 Connect Emergency Doctor</button><button class="btn btn-o btn-full" style="border-radius:var(--radius)" onclick="closeModal()">Close</button></div></div>`;
+  document.getElementById('modalBox').style.maxWidth='440px';
+}
+function triggerEmgDoc(){
+  document.getElementById('modalBody').innerHTML=`<div class="sm-pad"><div class="sm-icon" style="animation:spin 1.5s linear infinite;display:inline-block">⏳</div><div class="sm-title">Connecting to Doctor…</div><div class="sm-desc">Triage matching you with nearest emergency specialist</div><div style="background:var(--bg3);border-radius:var(--radius2);padding:16px;margin-bottom:16px">${mkAva(DOCS[0])&&`<div style="display:flex;align-items:center;gap:11px;background:var(--card2);border:0.5px solid rgba(0,201,167,.3);border-radius:var(--radius);padding:13px"><div style="width:36px;height:36px;border-radius:9px;overflow:hidden">${mkAva(DOCS[0])}</div><div style="flex:1"><div style="font-size:13.5px;font-weight:700">${DOCS[0].name}</div><div style="font-size:11px;color:var(--muted)">Emergency Medicine · AIIMS</div></div><div style="font-size:10px;font-weight:700;background:var(--teal2);color:var(--teal);border-radius:100px;padding:3px 8px;animation:blink 1s infinite">Connecting…</div></div>`}</div><div class="sm-btns"><button class="btn btn-r btn-full" style="border-radius:var(--radius);animation:none" onclick="closeModal();openVideoCall('d1')">🎥 Start Emergency Video Call</button><button class="btn btn-o btn-full" style="border-radius:var(--radius)" onclick="closeModal()">Cancel</button></div></div>`;
+  document.getElementById('modalBox').style.maxWidth='440px';
+}
+
+/* ── GENERIC MODALS ── */
+function openModal(type){
+  let html='',maxW=440;
+  if(type==='docok'){html=`<div class="sm-pad"><div class="sm-icon">✅</div><div class="sm-title">Application Submitted!</div><div class="sm-desc">Our team will verify your credentials within <strong style="color:var(--teal)">24–48 hours</strong>. Email updates at every step.</div><div class="sm-btns"><button class="btn btn-p btn-full" style="border-radius:var(--radius)" onclick="closeModal()">Got it!</button></div></div>`}
+  else if(type==='patok'){html=`<div class="sm-pad"><div class="sm-icon">🎉</div><div class="sm-title">Welcome to MediConnect!</div><div class="sm-desc">Your account is ready. Find doctors, book appointments, and access 24/7 emergency care.</div><div class="sm-btns"><button class="btn btn-p btn-full" style="border-radius:var(--radius)" onclick="closeModal();document.getElementById('specialties').scrollIntoView({behavior:'smooth'})">Find a Doctor →</button></div></div>`}
+  else if(type==='navigate'){html=`<div class="sm-pad"><div class="sm-icon">📍</div><div class="sm-title">Opening Navigation</div><div class="sm-desc">This will open Google Maps to the selected location.</div><div class="sm-btns"><button class="btn btn-p btn-full" style="border-radius:var(--radius)" onclick="closeModal()">Open Google Maps →</button><button class="btn btn-o btn-full" style="border-radius:var(--radius)" onclick="closeModal()">Cancel</button></div></div>`}
+  else if(type==='med-general'){html=`<div class="med-modal"><div style="font-size:32px;margin-bottom:10px">🛒</div><div style="font-size:20px;font-weight:700;margin-bottom:7px">Order Medicines Online</div><div style="font-size:13px;color:var(--muted);margin-bottom:18px;line-height:1.65">Search from 50,000+ medicines and wellness products. Genuine, quality-checked.</div><div class="fi" style="padding:11px 13px;margin-bottom:14px;display:flex;align-items:center;gap:9px;cursor:text"><span style="color:var(--muted)">🔍</span><span style="color:var(--faint)">Search medicine name, generic…</span></div><div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:18px">${['Paracetamol 500mg','Metformin 500mg','Amlodipine 5mg','Atorvastatin 10mg','Pantoprazole 40mg','Cetirizine 10mg'].map(m=>`<div style="background:var(--card);border:0.5px solid var(--border);border-radius:var(--radius);padding:10px 13px;font-size:13px;cursor:pointer;transition:all .2s" onmouseover="this.style.borderColor='var(--teal)'" onmouseout="this.style.borderColor='var(--border)'">${m}</div>`).join('')}</div><div class="sm-btns"><button class="btn btn-p btn-full" style="border-radius:var(--radius)" onclick="closeModal()">Browse All Medicines →</button></div></div>`,maxW=540}
+  else if(type==='med-rx'){html=`<div class="med-modal"><div style="font-size:32px;margin-bottom:10px">📋</div><div style="font-size:20px;font-weight:700;margin-bottom:7px">Order by Prescription</div><div style="font-size:13px;color:var(--muted);margin-bottom:18px;line-height:1.65">Upload your prescription and our licensed pharmacists will dispense exactly what's prescribed.</div><div class="photo-upload" style="margin-bottom:16px"><div class="pu-icon">📸</div><div class="pu-text"><strong>Upload Prescription</strong><br>Photo or PDF · Max 20MB</div></div><div class="fg"><label class="fl">Your Phone (for order updates)</label><input class="fi" type="tel" placeholder="+91 98765 43210"></div><div class="sm-btns" style="margin-top:8px"><button class="btn btn-gold btn-full" style="border-radius:var(--radius)" onclick="closeModal()">Submit Prescription →</button></div></div>`,maxW=480}
+  else if(type==='campaignok'){html=`<div class="sm-pad"><div class="sm-icon">❤️</div><div class="sm-title">Campaign Submitted!</div><div class="sm-desc">Our team will review your documents within <strong style="color:var(--gold)">24 hours</strong>. If verified, your campaign goes live and starts receiving donations immediately.</div><div class="sm-btns"><button class="btn btn-gold btn-full" style="border-radius:var(--radius)" onclick="closeModal();closeDonationPage()">Back to MediConnect</button></div></div>`}
+  else if(type==='doclogin'){html=`<div class="sm-pad"><div class="sm-icon">🔐</div><div class="sm-title">Doctor Login</div><div class="sm-btns"><div class="fg"><label class="fl">Email</label><input class="fi" type="email" placeholder="doctor@hospital.in"></div><div class="fg"><label class="fl">Password</label><input class="fi" type="password" placeholder="••••••••"></div><button class="btn btn-p btn-full" style="border-radius:var(--radius)" onclick="closeModal()">Login →</button></div></div>`,maxW=400}
+  else if(type==='signin'){html=`<div class="sm-pad"><div class="sm-icon">🩺</div><div class="sm-title">Sign In to MediConnect</div><div class="sm-btns"><div class="fg"><label class="fl">Phone or Email</label><input class="fi" placeholder="+91 98765 43210"></div><div class="fg"><label class="fl">Password</label><input class="fi" type="password" placeholder="••••••••"></div><button class="btn btn-p btn-full" style="border-radius:var(--radius)" onclick="closeModal()">Sign In →</button><button class="btn btn-o btn-full" style="border-radius:var(--radius);margin-top:0" onclick="closeModal()">📱 Login with OTP</button><div style="text-align:center;font-size:12.5px;color:var(--muted);margin-top:10px">Don't have an account? <span style="color:var(--teal);cursor:pointer" onclick="closeModal();document.getElementById('register').scrollIntoView({behavior:'smooth'})">Register here</span></div></div></div>`,maxW=400}
+  else{const name=type.replace('donate-','');html=`<div class="sm-pad"><div class="sm-icon">❤️</div><div class="sm-title" style="color:var(--gold)">Donate to ${name}</div><div class="sm-desc">Choose an amount or enter custom donation. 100% goes directly to treatment.</div><div style="display:grid;grid-template-columns:repeat(3,1fr);gap:9px;margin-bottom:16px">${[500,1000,2500,5000,10000,25000].map(a=>`<div style="background:var(--card);border:0.5px solid var(--border2);border-radius:var(--radius);padding:11px;text-align:center;cursor:pointer;font-weight:700;font-size:14px;transition:all .2s" onmouseover="this.style.borderColor='var(--gold)';this.style.background='var(--gold2)'" onmouseout="this.style.borderColor='var(--border2)';this.style.background='var(--card)'">₹${a.toLocaleString()}</div>`).join('')}</div><div class="fg"><label class="fl">Custom Amount (₹)</label><input class="fi" type="number" placeholder="Enter amount"></div><div class="fg"><label class="fl">Payment Method</label><select class="fi"><option>UPI</option><option>Credit / Debit Card</option><option>Net Banking</option><option>Wallet</option></select></div><button class="btn btn-gold btn-full" style="border-radius:var(--radius)" onclick="openModal('campaignok')">Donate Now →</button><p style="font-size:11px;color:var(--muted);text-align:center;margin-top:8px">100% of your donation goes to the patient. Zero platform fee.</p></div>`,maxW=440}
+  setModal(html,maxW);
+}
+
+function setModal(html,maxW=440){
+  document.getElementById('modalBody').innerHTML=html;
+  document.getElementById('modalBox').style.maxWidth=maxW+'px';
+  document.getElementById('modalOv').classList.add('open');
+  document.body.style.overflow='hidden';
+}
+function closeModal(){document.getElementById('modalOv').classList.remove('open');document.body.style.overflow='';}
+function closeModalOuter(e){if(e.target===document.getElementById('modalOv'))closeModal();}
+
+/* ── DONATION PAGE ── */
+function openDonationPage(){document.getElementById('donationPage').classList.add('dp-open');document.body.style.overflow='hidden';}
+function closeDonationPage(){document.getElementById('donationPage').classList.remove('dp-open');document.body.style.overflow='';}
+
+/* ── REGISTER TABS ── */
+function switchRegTab(type){
+  document.getElementById('regFormDoc').style.display=type==='doc'?'grid':'none';
+  document.getElementById('regFormPat').style.display=type==='pat'?'grid':'none';
+  document.getElementById('regTabDoc').style.background=type==='doc'?'var(--teal)':'transparent';
+  document.getElementById('regTabDoc').style.color=type==='doc'?'#04111F':'var(--muted)';
+  document.getElementById('regTabPat').style.background=type==='pat'?'var(--teal)':'transparent';
+  document.getElementById('regTabPat').style.color=type==='pat'?'#04111F':'var(--muted)';
+}
+
+/* ── SEARCH & FILTER ── */
+function filterDocs(q){
+  const all=document.querySelectorAll('#docGrid .doc-card');
+  all.forEach((c,i)=>{
+    const d=DOCS[i];if(!d)return;
+    const match=d.name.toLowerCase().includes(q.toLowerCase())||d.spec.toLowerCase().includes(q.toLowerCase())||d.city.toLowerCase().includes(q.toLowerCase());
+    c.style.display=match?'':'none';
+  });
+}
+function setDocFilter(type,btn){
+  document.querySelectorAll('#doctors .filter-pill').forEach(b=>b.classList.remove('fp-active'));
+  btn.classList.add('fp-active');
+  let filtered=[...DOCS];
+  if(type==='available')filtered=DOCS.filter(d=>d.available);
+  else if(type==='top')filtered=[...DOCS].sort((a,b)=>b.rating-a.rating);
+  else if(type==='low')filtered=[...DOCS].sort((a,b)=>a.fee-b.fee);
+  renderDocGrid(filtered);
+}
+function liveSearch(q){document.getElementById('docFilter').value=q;filterDocs(q);}
+function triggerSearch(){const q=document.getElementById('docSearchInput').value;document.getElementById('doctors').scrollIntoView({behavior:'smooth'});filterDocs(q);}
+
+/* ── DRAWER ── */
+function toggleDrawer(){
+  document.getElementById('drawer').classList.toggle('open');
+  document.getElementById('drawerOv').classList.toggle('open');
+}
+
+/* ── SCROLL REVEAL ── */
+const ro=new IntersectionObserver(entries=>{entries.forEach(e=>{if(e.isIntersecting)e.target.classList.add('visible')})},{threshold:0.12,rootMargin:'0px 0px -40px 0px'});
+function initReveal(){document.querySelectorAll('.reveal').forEach(el=>ro.observe(el))}
+
+/* ── COUNTER ANIMATION ── */
+function animateCounters(){
+  document.querySelectorAll('[data-target]').forEach(el=>{
+    const target=parseInt(el.getAttribute('data-target'));
+    const prefix=el.textContent.replace(/[\d,]+/g,'').replace(target,'');
+    let current=0;
+    const step=target/60;
+    const timer=setInterval(()=>{
+      current=Math.min(current+step,target);
+      el.textContent=(prefix.includes('₹')?`₹${Math.round(current)}Cr`:`${Math.round(current).toLocaleString()}`);
+      if(current>=target)clearInterval(timer);
+    },25);
+  });
+}
+const donCo=new IntersectionObserver(entries=>{entries.forEach(e=>{if(e.isIntersecting){animateCounters();donCo.disconnect()}})},{threshold:0.5});
+const donSection=document.getElementById('donation-bottom');
+if(donSection)donCo.observe(donSection);
+
+/* ── CALENDAR (appt in doc modal) ── */
+document.addEventListener('click',e=>{
+  if(e.target.classList.contains('cal-d')&&e.target.classList.contains('cd-slot')){
+    document.querySelectorAll('.cal-d').forEach(x=>x.classList.remove('cd-sel'));
+    e.target.classList.add('cd-sel');
+  }
+});
+function scrollTop(){window.scrollTo({top:0,behavior:'smooth'});return false;}
+
+/* ── INIT ── */
+renderAll();
+initReveal();
+</script>
+</body>
+</html>
